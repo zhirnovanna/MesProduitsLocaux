@@ -4,25 +4,25 @@
     <div class="row">
       <div class="col-md-6 mt-5 mx-auto">
         <form @submit.prevent="submit">
-          <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+          <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
             <div class="form-group">
               <label for="email">
                 Email
               </label>
 
-              <input type="text" class="form-control" name="email" placeholder="Email Address" id="email" v-model="form.email">
+              <input type="text" class="form-control" name="email" placeholder="ex: mesproduitslocaux@yahoo.com" id="email" v-model="form.email">
             </div>
 
             <div class="form-group">
               <label for="password">
-                Password
+                Mot de passe
               </label>
-              <input type="password" class="form-control" name="password" placeholder="Password" id="password" v-model="form.password">
+              <input type="password" class="form-control" name="password" placeholder="ex: jaimemesproduitslocaux" id="password" v-model="form.password">
             </div>
 
             <div>
               <button class="btn btn-lg btn-primary btn-block" type="submit">
-                Sign in
+                Valider
               </button>
             </div>
           </form>

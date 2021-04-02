@@ -3,45 +3,45 @@
     <div class="row">
       <div class="col-md-6 mt-5 mx-auto">
         <form @submit.prevent="submit">
-          <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+          <h1 class="h3 mb-3 font-weight-normal">Création de votre compte</h1>
 
           <div class="form-group">
-            <label for="firstname"> First Name</label>
-            <input type="text" v-model="form.firstname" class="form-control" name="first_name" placeholder="first name">
+            <label for="firstname">Votre prénom</label>
+            <input type="text" v-model="form.firstname" class="form-control" name="first_name" placeholder="ex: Paul ">
           </div>
 
           <div class="form-group">
-            <label for="lastname"> Last Name</label>
-            <input type="text" v-model="form.lastname" class="form-control" name="last_name" placeholder="last name">
+            <label for="lastname">Votre nom</label>
+            <input type="text" v-model="form.lastname" class="form-control" name="last_name" placeholder="ex: Dupont">
           </div>
 
           <div class="form-group">
-            <label for="email"> Email Address</label>
-            <input type="email" v-model="form.email" class="form-control" name="email" placeholder="Email Address">
+            <label for="email">Votre email</label>
+            <input type="email" v-model="form.email" class="form-control" name="email" placeholder="ex: paul@gmail.com">
           </div>
            <div class="form-group">
-            <label for="city"> City </label>
-            <input type="text" v-model="form.city" class="form-control" name="city" placeholder="Your city">
+            <label for="city">Votre ville </label>
+            <input type="text" v-model="form.city" class="form-control" name="city" placeholder="ex: Paris">
           </div>            
           <div class="form-group">
-            <label for="pc"> Postal Code</label>
-            <input type="number" v-model="form.pc" class="form-control" name="pc" placeholder="Your PC">
+            <label for="pc">Code Postal</label>
+            <input type="number" v-model="form.pc" class="form-control" name="pc" placeholder="ex: 75000">
           </div> 
           <div class="form-group">
-            <label for="address"> Address</label>
-            <input type="text" v-model="form.address" class="form-control" name="address" placeholder="Your Address">
+            <label for="address">Adresse</label>
+            <input type="text" v-model="form.address" class="form-control" name="address" placeholder="ex: 1 rue La Fayette">
           </div> 
           <div class="form-group">
-            <label for="phone"> Phone number</label>
-            <input type="number" v-model="form.phone" class="form-control" name="phone" placeholder="Phone">
+            <label for="phone">Numéro de téléphone</label>
+            <input type="number" v-model="form.phone" class="form-control" name="phone" placeholder="ex: 06123456">
           </div>
 
           <div class="form-group">
-            <label for="password"> Password</label>
-            <input type="password" v-model="form.password" class="form-control" name="password" placeholder="Password">
+            <label for="password">Mot de passe</label>
+            <input type="password" v-model="form.password" class="form-control" name="password" placeholder="ex:mesproduitslocaux">
           </div>
 
-          <button type="submit" class="btn btn-lg btn-primary btn-block">Sign up</button>
+          <button type="submit" class="btn btn-lg btn-primary btn-block">Valider</button>
         </form>
       </div>
     </div>

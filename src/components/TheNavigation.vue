@@ -4,12 +4,12 @@
             <router-link :to="{
                 name: 'Home'
             }">
-            Home
+            Page d'accueil 
             </router-link>
         </li>
         
         <template v-if="authenticated">
-        <li> Hello {{ user.firstname }} ! </li>
+        <li> Bonjour {{ user.firstname }} ! </li>
         <li>
             <router-link :to="{
                 name: 'Dashboard'
@@ -20,7 +20,7 @@
 
         <li>
             <a href="#" @click.prevent="signOut">
-            Sign out
+            Se déconnecter
             </a>
         </li>
         </template> 
@@ -29,14 +29,14 @@
             <router-link :to="{
                 name: 'SignIn'
             }">
-            Sign in
+            Se connecter
             </router-link>
         </li>
         <li>
             <router-link :to="{
                 name: 'SignUp'
             }">
-            Sign up
+            Créer votre compte
             </router-link>
         </li>
         </template>
