@@ -14,7 +14,7 @@
             <router-link :to="{
                 name: 'Dashboard'
             }">
-            Dashboard
+            Mon compte 
             </router-link>
         </li>
 
