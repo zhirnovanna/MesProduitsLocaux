@@ -2,6 +2,15 @@
   <div class="container">
     <div class="mt-5 mb-4">
 
+        <div class="block-map my-3">
+          <h4 class="block-map__title">Choisissez votre région</h4>
+          <div class="d-flex flex-column my-2">
+          <router-link to="/region/1">Grand Est</router-link>
+          <router-link to="/region/8">Corse</router-link>
+          <router-link to="/region/11">Hauts de France</router-link>
+          </div>
+        </div>
+
         <div class="py-2 d-flex block-infos">
           <div class="d-flex flex-column align-items-center block-infos__item">
             <i class="bi bi-truck block-infos__icon"></i>
@@ -36,6 +45,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.block-map {
+
+  &__title {
+    color: $primary-color;
+  }
+}
+
 .block-infos {
   flex-direction: column;
   justify-content: flex-start;
