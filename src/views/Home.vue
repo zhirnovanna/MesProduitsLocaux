@@ -4,10 +4,8 @@
 
         <div class="block-map my-3">
           <h4 class="block-map__title">Choisissez votre région</h4>
-          <div class="d-flex flex-column my-2">
-          <router-link to="/region/1">Grand Est</router-link>
-          <router-link to="/region/8">Corse</router-link>
-          <router-link to="/region/11">Hauts de France</router-link>
+          <div class="d-flex flex-column align-items-start my-2">
+          <router-link v-for="region in regions" v-bind:key="region.id" :to="{ name: 'ProductsDisplay', params: { regionId: region.id } }">{{ region.name }}</router-link>
           </div>
         </div>
 
@@ -40,7 +38,17 @@
 export default {
   name: 'Home',
   components: {
-  }
+  },
+
+    computed: {
+      regions() {
+        return this.$store.state.regions;
+      },
+    },
+
+    mounted() {
+        this.$store.dispatch("getRegions");
+    }
 }
 </script>
 
