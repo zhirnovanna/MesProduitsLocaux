@@ -27,11 +27,11 @@ export default {
 <style lang="scss" scoped>
 
 .header {
-    height: 5rem;
+    height: 4rem;
     box-shadow: $shadow-bottom;
 
     @media screen and (min-width: #{$phone}) {
-        height: 7rem;
+        height: 6rem;
     }
 
     &__logo-large {
@@ -39,14 +39,14 @@ export default {
 
         @media screen and (min-width: #{$phone}) {
             display: inline-block;
-            width: 30rem;
+            width: 25rem;
             height: auto;
         }
     }
 
     &__logo-mobile {
         display: inline-block;
-        width: 4rem;
+        width: 3.5rem;
         height: auto;
 
         @media screen and (min-width: #{$phone}) {

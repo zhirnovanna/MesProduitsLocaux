@@ -74,6 +74,7 @@ export default {
         opacity: 0.5;
 
         &:hover {
+            opacity: 1;
 
             & .block-categories__icon-wrapper {
                 transform: scale(1.1);
@@ -97,7 +98,7 @@ export default {
         background-color: $white;
         cursor: pointer;
         transform: scale(1);
-        transition: transform 500ms ease-out;
+        transition: transform 300ms ease-out;
     }
 
     &__name {

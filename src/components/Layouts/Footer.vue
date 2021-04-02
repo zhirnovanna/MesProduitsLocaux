@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template>
-    <footer class="footer">
+    <footer class="mt-4 footer">
         <div class="container h-100">
             <div class="h-100 w-100 footer__wrapper">
                 <div class="h-75 d-flex flex-column justify-content-between footer__section">
@@ -64,9 +64,11 @@ export default {
                 <div class="h-75 footer__section">
                     <h6 @click="toggleVisibility($refs.footerAccount)" class="text-uppercase font-weight-bold footer__section-title">Mon compte</h6>
                     <div class="footer__section-body" ref="footerAccount">
-                        <a class="mb-2 footer__section-item">
+                        <router-link class="mb-2 footer__section-item" :to="{
+                            name: 'Dashboard'
+                        }">
                             Mon compte
-                        </a>
+                        </router-link>
                         <a class="mb-2 footer__section-item">
                             Historique des achats
                         </a>
