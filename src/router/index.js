@@ -11,6 +11,8 @@ import ProductAdministration from '../views/Administration/ProductAdministration
 import CategoriesAdministration from '../views/Administration/CategoriesAdministration.vue'
 import RegionsAdministration from '../views/Administration/RegionsAdministration.vue'
 import EntityAdministration from '../views/Administration/EntityAdministration.vue'
+import UsersAdministration from '../views/Administration/UsersAdministration.vue'
+import UserAdministration from '../views/Administration/UserAdministration.vue'
 
 const routes = [
   {
@@ -101,6 +103,18 @@ const routes = [
         name: 'RegionCreation',
         component: EntityAdministration
       }
+    ]
+  },
+  {
+    path: '/administration/users',
+    name: 'UsersAdministration',
+    component: UsersAdministration,
+    children: [
+      {
+        path: '/administration/users/edit/:id',
+        name: 'UserUpdate',
+        component: UserAdministration
+      },
     ]
   },
 ]

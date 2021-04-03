@@ -2,9 +2,48 @@ import { ENDPOINT } from './../index';
 
 
 const state = () => ({
+    users: [],
+    userToUpdate: {}
 })
 
+const getters = {
+    usersEmails(state) {
+        let usersEmails = [];
+        for(const user of state.users) {
+          usersEmails.push(user.email);
+        }
+        return usersEmails;
+    },
+}
+
 const mutations = {
+    SET_USERS(state, users) {
+        state.users = users;
+    },
+
+    SET_USER(state, user) {
+        state.userToUpdate = user;
+    },
+
+    UPDATE_USER(state, updatedUser) {
+        const index = state.users.findIndex(user => user.id === updatedUser.id);
+  
+        if (index !== -1) {
+            state.users.splice(index, 1, updatedUser);
+        }
+
+        if(state.userToUpdate.id === updatedUser.id) {
+            state.userToUpdate = updatedUser;
+        }
+    },
+
+    REMOVE_USER(state, userId) {
+        state.users = state.users.filter((user) => user.id !== userId);
+
+        if(state.userToUpdate.id === userId) {
+            state.userToUpdate = {};
+        }
+    },
 }
 
 const actions = {
@@ -168,11 +207,78 @@ const actions = {
         }
 
         commit('REMOVE_REGION', regionId);
-    }
+    },
+
+    // users related actions
+
+    async getUsers ({ commit }) {
+        // get all products
+        let response = await fetch(ENDPOINT + 'users');
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            console.log(message);
+            return null;
+        }
+
+        const data = await response.json();
+
+        commit('SET_USERS', data);
+    },
+
+    async getUser ({ commit }, userId) {
+        // get one category data by id
+        let response = await fetch(ENDPOINT + 'users/' + userId);
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            console.log(message);
+            return null;
+        }
+
+        const data = await response.json();
+
+        commit('SET_USER', data);
+    },
+
+    async editUser ({ commit }, editedUser) {
+        // edit an existing user account from crud
+        let response = await fetch(ENDPOINT + 'users/' + editedUser.id, {
+            method: 'PUT', 
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify(editedUser.body)});
+
+        if (!response.ok) {
+            const errors = await response.json();
+            const message = `An error has occured: ${response.status}`;
+            console.log(message, errors.errors);
+            return null;
+        }
+
+        const updatedUser= await response.json();
+
+        commit('UPDATE_USER', updatedUser);
+    },
+
+    async deleteUser ({ commit }, userId) {
+        // delete product from crud
+        let response = await fetch(ENDPOINT + 'users/' + userId, {
+            method: 'DELETE', 
+            headers: {'Content-Type': 'application/json'}});
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            console.log(message);
+            return null;
+        }
+
+        commit('REMOVE_USER', userId);
+    },
 }
 
 export default {
     state,
+    getters,
     mutations,
     actions
 }

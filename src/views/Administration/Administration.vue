@@ -9,6 +9,7 @@
                 <router-link :to="{ name: 'ProductsAdministration' }" class="btn btn-secondary w-75 mb-3">Produits</router-link>
                 <router-link :to="{ name: 'CategoriesAdministration' }" class="btn btn-secondary w-75 mb-3">Catégories</router-link>
                 <router-link :to="{ name: 'RegionsAdministration' }" class="btn btn-secondary w-75 mb-3">Régions</router-link>
+                <router-link :to="{ name: 'UsersAdministration' }" class="btn btn-secondary w-75 mb-3">Utilisateurs</router-link>
             </div>
 
         </div>

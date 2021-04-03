@@ -72,6 +72,7 @@ export default {
         width: 7rem;
         overflow: hidden;
         opacity: 0.5;
+        transition: opacity 300ms ease-out;
 
         &:hover {
             opacity: 1;
