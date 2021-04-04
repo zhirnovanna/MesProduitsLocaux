@@ -6,14 +6,22 @@ export default {
             type: [String, Number],
             required: true
         },
-        modelLastPage: {
+        /*modelLastPage: {
             type: [String, Number],
             required: true
         },
         modelPages: {
             type: Array,
             required: true
-        }
+        }*/
+        modelItemsPerPage: {
+            type: [String, Number],
+            required: true
+        },
+        modelNumberOfItems: {
+            type: [String, Number],
+            required: true
+        },
     },
 
     computed: {
@@ -26,7 +34,22 @@ export default {
             }
         },
 
-        lastPage: {
+        lastPage() {
+            return Math.ceil(this.modelNumberOfItems/this.modelItemsPerPage);
+        },
+
+        pages() {
+            // reinitialize pages array before re running the method 
+            let pages = [];
+
+            for (let i = 1; i <= this.lastPage; i++) {
+                pages.push(i);
+            }
+
+            return pages;
+        },
+
+        /*lastPage: {
             get() {
                 return this.modelLastPage
             }
@@ -36,7 +59,7 @@ export default {
             get() {
                 return this.modelPages
             }
-        },
+        },*/
 
         offset() {
             if(this.page < 3) {

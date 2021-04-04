@@ -11,14 +11,15 @@
     <Pagination
     @update:modelPage = 'updatePage'
     v-bind:modelPage="page"
-    v-bind:modelLastPage="lastPage"
-    v-bind:modelPages="pages"/>
+    v-bind:modelItemsPerPage="productsPerPage"
+    v-bind:modelNumberOfItems="lengthMatchedProducts"
+    />
 </div>
 </template>
 
 <script>
 
-import ProductCard from './ProductCard.vue'
+import ProductCard from '@/components/ProductCard.vue'
 import Pagination from '@/components/Pagination.vue'
 
 
@@ -33,9 +34,7 @@ export default {
   data() {
       return {
         productsPerPage: 12,
-        page: 1,
-        pages: [],
-        lastPage: 1
+        page: 1
       }
 
   },
@@ -109,27 +108,12 @@ export default {
     },
 
     lengthMatchedProducts() {
-      // at every new total of matched products go back to page 1 and recalculate pages
+      // at every new total of matched products go back to page 1
       this.page = 1;
-      this.setPages();
     }
   },
 
   methods: {
-    setPages() {
-      // reinitialize pages array before re running the method 
-      this.pages = [];
-
-      let numberOfPages = Math.ceil(this.lengthMatchedProducts/this.productsPerPage);
-      this.lastPage = numberOfPages;
-
-      for (let i = 1; i <= numberOfPages; i++) {
-		    this.pages.push(i);
-      }
-
-      console.log(this.pages, this.lastPage, this.page)
-    },
-
     updatePage(value) {
       this.page = value;
     },
@@ -139,7 +123,6 @@ export default {
     // send GET request to API to get the products info corresponding to the passed parameters
     this.$store.dispatch("getFilteredProducts", { 'filters': this.filters, 'offset': (this.page - 1) * this.productsPerPage, 'limit': this.productsPerPage});
     this.$store.dispatch("getMatchedProductsNumber", this.filters);
-    this.setPages();
   }
 }
 </script>

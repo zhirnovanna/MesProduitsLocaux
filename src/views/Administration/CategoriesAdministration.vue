@@ -33,8 +33,8 @@
             <Pagination
                 @update:modelPage = 'updatePage'
                 v-bind:modelPage="page"
-                v-bind:modelLastPage="lastPage"
-                v-bind:modelPages="pages"
+                v-bind:modelItemsPerPage="categoriesPerPage"
+                v-bind:modelNumberOfItems="categoriesTotalNumber"
             />
 
         </div>
@@ -66,9 +66,7 @@ export default {
   data() {
     return {
       categoriesPerPage: 10,
-      page: 1,
-      pages: [],
-      lastPage: 1
+      page: 1
     }
   },
 
@@ -91,17 +89,6 @@ export default {
       this.$router.push({ name: 'CategoriesAdministration' })
     },
 
-    setPages() {
-      // reinitialize pages array before re running the method 
-      this.pages = [];
-      let numberOfPages = Math.ceil(this.categoriesTotalNumber/this.categoriesPerPage);
-      this.lastPage = numberOfPages;
-
-      for (let i = 1; i <= numberOfPages; i++) {
-		    this.pages.push(i);
-      }
-    },
-
     updatePage(value) {
         this.page = value;
     },
@@ -112,19 +99,17 @@ export default {
   },
 
   watch: {
-    categoriesTotalNumber() {
-      this.setPages();
-    },
-
     page() {
+      // get new set of paginated categories when changing page
       this.$store.dispatch("getCategories", { 'offset': (this.page - 1) * this.categoriesPerPage, 'limit': this.categoriesPerPage });
     }
   },
 
   mounted() {
+    // get all categories paginated
     this.$store.dispatch("getCategories", { 'offset': (this.page - 1) * this.categoriesPerPage, 'limit': this.categoriesPerPage });
+    // get total number of regions
     this.$store.dispatch("getCategoriesNumber");
-    this.setPages();
   }
 }
 </script>

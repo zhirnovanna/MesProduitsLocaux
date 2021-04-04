@@ -40,8 +40,8 @@
         <Pagination
             @update:modelPage = 'updatePage'
             v-bind:modelPage="page"
-            v-bind:modelLastPage="lastPage"
-            v-bind:modelPages="pages"
+            v-bind:modelItemsPerPage="productsPerPage"
+            v-bind:modelNumberOfItems="productsTotalNumber"
         />
 
 
@@ -71,9 +71,7 @@ export default {
   data() {
     return {
       productsPerPage: 10,
-      page: 1,
-      pages: [],
-      lastPage: 1
+      page: 1
     }
   },
 
@@ -96,18 +94,6 @@ export default {
       this.$router.push({ name: 'ProductsAdministration' })
     },
 
-    setPages() {
-      // reinitialize pages array before re running the method 
-      this.pages = [];
-
-      let numberOfPages = Math.ceil(this.productsTotalNumber/this.productsPerPage);
-      this.lastPage = numberOfPages;
-
-      for (let i = 1; i <= numberOfPages; i++) {
-		    this.pages.push(i);
-      }
-    },
-
     updatePage(value) {
       this.page = value;
     },
@@ -118,21 +104,19 @@ export default {
   },
 
   watch: {
-    productsTotalNumber() {
-      this.setPages();
-    },
-
     page() {
+      // get new set of products (without filters) paginated on page change
       this.$store.dispatch("getFilteredProducts", { 'filters': {'region': '', 'category': '', 'min_price': '', 'max_price': '', 'search': ''},
         'offset': (this.page - 1) * this.productsPerPage, 'limit': this.productsPerPage });
     }
   },
 
   mounted() {
+    // get set of all type of products (without filters) paginated
     this.$store.dispatch("getFilteredProducts", { 'filters': {'region': '', 'category': '', 'min_price': '', 'max_price': '', 'search': ''},
       'offset': (this.page - 1) * this.productsPerPage, 'limit': this.productsPerPage });
+    // get total number of products (without filters)
     this.$store.dispatch("getMatchedProductsNumber");
-    this.setPages();
   }
 }
 </script>

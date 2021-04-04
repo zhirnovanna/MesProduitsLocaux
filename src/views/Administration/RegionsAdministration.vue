@@ -33,8 +33,8 @@
             <Pagination
                 @update:modelPage = 'updatePage'
                 v-bind:modelPage="page"
-                v-bind:modelLastPage="lastPage"
-                v-bind:modelPages="pages"
+                v-bind:modelItemsPerPage="regionsPerPage"
+                v-bind:modelNumberOfItems="regionsTotalNumber"
             />
 
         </div>
@@ -66,9 +66,7 @@ export default {
   data() {
     return {
       regionsPerPage: 10,
-      page: 1,
-      pages: [],
-      lastPage: 1
+      page: 1
     }
   },
 
@@ -91,18 +89,6 @@ export default {
       this.$router.push({ name: 'RegionsAdministration' })
     },
 
-    setPages() {
-      // reinitialize pages array before re running the method 
-      this.pages = [];
-      
-      let numberOfPages = Math.ceil(this.regionsTotalNumber/this.regionsPerPage);
-      this.lastPage = numberOfPages;
-
-      for (let i = 1; i <= numberOfPages; i++) {
-        this.pages.push(i);
-      }
-    },
-
     updatePage(value) {
         this.page = value;
     },
@@ -113,19 +99,18 @@ export default {
   },
 
   watch: {
-    regionsTotalNumber() {
-      this.setPages();
-    },
 
     page() {
+      // get new set of paginated regions when changing page
       this.$store.dispatch("getRegions", { 'offset': (this.page - 1) * this.regionsPerPage, 'limit': this.regionsPerPage });
     }
   },
 
   mounted() {
+    // get all regions paginated
     this.$store.dispatch("getRegions", { 'offset': (this.page - 1) * this.regionsPerPage, 'limit': this.regionsPerPage });
+    // get total number of regions
     this.$store.dispatch("getRegionsNumber");
-    this.setPages();
   }
 }
 </script>
