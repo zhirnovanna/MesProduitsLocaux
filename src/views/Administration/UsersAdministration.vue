@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="user in displayedUsers" v-bind:key="user.id">
+                            <tr v-for="user in users" v-bind:key="user.id">
                                 <th scope="row">{{ user.id }}</th>
                                 <td>{{ user.lastname }}</td>
                                 <td>{{ user.firstname }}</td>
@@ -69,7 +69,7 @@ export default {
 
   data() {
     return {
-      usersPerPage: 15,
+      usersPerPage: 10,
       page: 1,
       pages: [],
       lastPage: 1
@@ -81,9 +81,9 @@ export default {
       return this.$store.state.crud.users;
     },
 
-    displayedUsers () {
-	  return this.paginate(this.users);
-	},
+    usersTotalNumber() {
+      return this.$store.state.crud.lengthUsers;
+    },
 
     isUserOpen () {
       return (this.$route.name === 'UserUpdate');
@@ -98,7 +98,7 @@ export default {
     setPages() {
       // reinitialize pages array before re running the method 
       this.pages = [];
-      let numberOfPages = Math.ceil(this.users.length/this.usersPerPage);
+      let numberOfPages = Math.ceil(this.usersTotalNumber/this.usersPerPage);
       this.lastPage = numberOfPages;
 
       for (let i = 1; i <= numberOfPages; i++) {
@@ -110,25 +110,25 @@ export default {
         this.page = value;
     },
 
-    paginate (users) {
-	  let from = (this.page * this.usersPerPage) - this.usersPerPage;
-	  let to = (this.page * this.usersPerPage);
-	  return  users.slice(from, to);
-	},
-
     deleteUser(userId) {
       this.$store.dispatch("deleteUser", userId);
     },
   },
 
   watch: {
-	users() {
-	  this.setPages();
-	}
+    usersTotalNumber() {
+      this.setPages();
+    },
+
+    page() {
+      this.$store.dispatch("getUsers", { 'offset': (this.page - 1) * this.usersPerPage, 'limit': this.usersPerPage });
+    }
   },
 
   mounted() {
-    this.$store.dispatch("getUsers");
+    this.$store.dispatch("getUsers", { 'offset': (this.page - 1) * this.usersPerPage, 'limit': this.usersPerPage });
+    this.$store.dispatch("getUsersNumber");
+    this.setPages();
   }
 }
 </script>

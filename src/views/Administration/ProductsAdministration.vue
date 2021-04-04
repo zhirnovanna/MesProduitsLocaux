@@ -20,7 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="product in displayedProducts" v-bind:key="product.id">
+                            <tr v-for="product in products" v-bind:key="product.id">
                                 <th scope="row">{{ product.id }}</th>
                                 <td>{{ product.name }}</td>
                                 <td>{{ product.price }}</td>
@@ -70,7 +70,7 @@ export default {
 
   data() {
     return {
-      productsPerPage: 15,
+      productsPerPage: 10,
       page: 1,
       pages: [],
       lastPage: 1
@@ -82,9 +82,9 @@ export default {
       return this.$store.state.products;
     },
 
-    displayedProducts () {
-	    return this.paginate(this.products);
-	  },
+    productsTotalNumber() {
+      return this.$store.state.lengthMatchedProducts;
+    },
 
     isProductOpen () {
       return (this.$route.name === 'ProductCreation' || this.$route.name === 'ProductUpdate');
@@ -100,7 +100,7 @@ export default {
       // reinitialize pages array before re running the method 
       this.pages = [];
 
-      let numberOfPages = Math.ceil(this.products.length/this.productsPerPage);
+      let numberOfPages = Math.ceil(this.productsTotalNumber/this.productsPerPage);
       this.lastPage = numberOfPages;
 
       for (let i = 1; i <= numberOfPages; i++) {
@@ -112,25 +112,27 @@ export default {
       this.page = value;
     },
 
-    paginate (products) {
-	  let from = (this.page * this.productsPerPage) - this.productsPerPage;
-	  let to = (this.page * this.productsPerPage);
-	  return  products.slice(from, to);
-	  },
-
     deleteProduct(productId) {
       this.$store.dispatch("deleteProduct", productId);
     },
   },
 
   watch: {
-    products() {
+    productsTotalNumber() {
       this.setPages();
+    },
+
+    page() {
+      this.$store.dispatch("getFilteredProducts", { 'filters': {'region': '', 'category': '', 'min_price': '', 'max_price': '', 'search': ''},
+        'offset': (this.page - 1) * this.productsPerPage, 'limit': this.productsPerPage });
     }
   },
 
   mounted() {
-    this.$store.dispatch("getAllProducts");
+    this.$store.dispatch("getFilteredProducts", { 'filters': {'region': '', 'category': '', 'min_price': '', 'max_price': '', 'search': ''},
+      'offset': (this.page - 1) * this.productsPerPage, 'limit': this.productsPerPage });
+    this.$store.dispatch("getMatchedProductsNumber");
+    this.setPages();
   }
 }
 </script>

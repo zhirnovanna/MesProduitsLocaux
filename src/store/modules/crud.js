@@ -3,7 +3,8 @@ import { ENDPOINT } from './../index';
 
 const state = () => ({
     users: [],
-    userToUpdate: {}
+    userToUpdate: {},
+    lengthUsers: 0
 })
 
 const getters = {
@@ -19,6 +20,10 @@ const getters = {
 const mutations = {
     SET_USERS(state, users) {
         state.users = users;
+    },
+
+    SET_USERS_NUMBER(state, usersNumber) {
+        state.lengthUsers = usersNumber;
     },
 
     SET_USER(state, user) {
@@ -211,9 +216,9 @@ const actions = {
 
     // users related actions
 
-    async getUsers ({ commit }) {
+    async getUsers ({ commit }, pagination = {offset: '', limit: ''}) {
         // get all products
-        let response = await fetch(ENDPOINT + 'users');
+        let response = await fetch(ENDPOINT + 'users?offset=' + pagination.offset + '&limit=' + pagination.limit);
 
         if (!response.ok) {
             const message = `An error has occured: ${response.status}`;
@@ -224,6 +229,21 @@ const actions = {
         const data = await response.json();
 
         commit('SET_USERS', data);
+    },
+
+    async getUsersNumber ({ commit }) {
+        // get all products
+        let response = await fetch(ENDPOINT + 'users/count');
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            console.log(message);
+            return null;
+        }
+
+        const data = await response.json();
+
+        commit('SET_USERS_NUMBER', data);
     },
 
     async getUser ({ commit }, userId) {

@@ -2,7 +2,7 @@
 <div class="my-5">
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-            <ProductCard v-for="product in displayedProducts" 
+            <ProductCard v-for="product in products" 
             v-bind:product="product" 
             v-bind:key="product.key" />
         </div>
@@ -32,7 +32,7 @@ export default {
 
   data() {
       return {
-        productsPerPage: 15,
+        productsPerPage: 12,
         page: 1,
         pages: [],
         lastPage: 1
@@ -74,9 +74,10 @@ export default {
   },
 
   computed: {
-    parameters() {
+    filters() {
       // generate parameters object from filters passed as props for API request
-      return { 'region': this.regionId, 
+      return {
+        'region': this.regionId, 
         'category': this.categoryId, 
         'min_price': this.minPrice, 
         'max_price': this.maxPrice, 
@@ -89,19 +90,26 @@ export default {
       return this.$store.state.products;
     },
 
-    displayedProducts () {
-	  return this.paginate(this.products);
-	},
+    lengthMatchedProducts() {
+      // return the number of products matched with the criteria passed as parameters for pagination
+      return this.$store.state.lengthMatchedProducts;
+    }
   },
 
   watch: {
-    parameters: function() {
-      // send new GET request to API with new parameters every time parameters change
-      this.$store.dispatch("getFilteredProducts", this.parameters);
+    filters() {
+      // send new GET request to API with new filters every time filters change
+      this.$store.dispatch("getFilteredProducts", { 'filters': this.filters, 'offset': (this.page - 1) * this.productsPerPage, 'limit': this.productsPerPage});
+      this.$store.dispatch("getMatchedProductsNumber", this.filters);
     },
 
-    products() {
-      // at every new set of products returned go back to page 1 and recalculate pages
+    page() {
+      // get corresponding paginated set of matched products when changing page
+      this.$store.dispatch("getFilteredProducts", { 'filters': this.filters, 'offset': (this.page - 1) * this.productsPerPage, 'limit': this.productsPerPage});
+    },
+
+    lengthMatchedProducts() {
+      // at every new total of matched products go back to page 1 and recalculate pages
       this.page = 1;
       this.setPages();
     }
@@ -112,29 +120,27 @@ export default {
       // reinitialize pages array before re running the method 
       this.pages = [];
 
-      let numberOfPages = Math.ceil(this.products.length/this.productsPerPage);
+      let numberOfPages = Math.ceil(this.lengthMatchedProducts/this.productsPerPage);
       this.lastPage = numberOfPages;
 
       for (let i = 1; i <= numberOfPages; i++) {
-		this.pages.push(i);
+		    this.pages.push(i);
       }
+
+      console.log(this.pages, this.lastPage, this.page)
     },
 
     updatePage(value) {
       this.page = value;
     },
-
-    paginate (products) {
-	  let from = (this.page * this.productsPerPage) - this.productsPerPage;
-	  let to = (this.page * this.productsPerPage);
-	  return  products.slice(from, to);
-	},
   },
 
   mounted() {
     // send GET request to API to get the products info corresponding to the passed parameters
-    this.$store.dispatch("getFilteredProducts", this.parameters);
-  },
+    this.$store.dispatch("getFilteredProducts", { 'filters': this.filters, 'offset': (this.page - 1) * this.productsPerPage, 'limit': this.productsPerPage});
+    this.$store.dispatch("getMatchedProductsNumber", this.filters);
+    this.setPages();
+  }
 }
 </script>
 

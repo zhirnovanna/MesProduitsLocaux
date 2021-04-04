@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="region in displayedRegions" v-bind:key="region.id">
+                            <tr v-for="region in regions" v-bind:key="region.id">
                                 <th scope="row">{{ region.id }}</th>
                                 <td>{{ region.name }}</td>
                                 <td class="">
@@ -65,7 +65,7 @@ export default {
 
   data() {
     return {
-      regionsPerPage: 15,
+      regionsPerPage: 10,
       page: 1,
       pages: [],
       lastPage: 1
@@ -77,9 +77,9 @@ export default {
       return this.$store.state.regions;
     },
 
-    displayedRegions () {
-	  return this.paginate(this.regions);
-	},
+    regionsTotalNumber() {
+      return this.$store.state.lengthRegions;
+    },
 
     isRegionOpen () {
       return (this.$route.name === 'RegionCreation' || this.$route.name === 'RegionUpdate');
@@ -95,11 +95,11 @@ export default {
       // reinitialize pages array before re running the method 
       this.pages = [];
       
-      let numberOfPages = Math.ceil(this.regions.length/this.regionsPerPage);
+      let numberOfPages = Math.ceil(this.regionsTotalNumber/this.regionsPerPage);
       this.lastPage = numberOfPages;
 
       for (let i = 1; i <= numberOfPages; i++) {
-		this.pages.push(i);
+        this.pages.push(i);
       }
     },
 
@@ -107,25 +107,25 @@ export default {
         this.page = value;
     },
 
-    paginate (regions) {
-	  let from = (this.page * this.regionsPerPage) - this.regionsPerPage;
-	  let to = (this.page * this.regionsPerPage);
-	  return  regions.slice(from, to);
-	},
-
     deleteRegion(regionId) {
       this.$store.dispatch("deleteRegion", regionId);
     },
   },
 
   watch: {
-    regions() {
+    regionsTotalNumber() {
       this.setPages();
+    },
+
+    page() {
+      this.$store.dispatch("getRegions", { 'offset': (this.page - 1) * this.regionsPerPage, 'limit': this.regionsPerPage });
     }
   },
 
   mounted() {
-    this.$store.dispatch("getRegions");
+    this.$store.dispatch("getRegions", { 'offset': (this.page - 1) * this.regionsPerPage, 'limit': this.regionsPerPage });
+    this.$store.dispatch("getRegionsNumber");
+    this.setPages();
   }
 }
 </script>

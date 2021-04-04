@@ -12,10 +12,13 @@ export default createStore({
   state: {
     products: [],
     product: {},
+    lengthMatchedProducts: 0,
     categories: [],
     category: {},
+    lengthCategories: 0,
     regions: [],
-    region: {}
+    region: {},
+    lengthRegions: 0
   },
 
   getters: {

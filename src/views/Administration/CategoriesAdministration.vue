@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="category in displayedCategories" v-bind:key="category.id">
+                            <tr v-for="category in categories" v-bind:key="category.id">
                                 <th scope="row">{{ category.id }}</th>
                                 <td>{{ category.name }}</td>
                                 <td class="">
@@ -65,7 +65,7 @@ export default {
 
   data() {
     return {
-      categoriesPerPage: 15,
+      categoriesPerPage: 10,
       page: 1,
       pages: [],
       lastPage: 1
@@ -77,9 +77,9 @@ export default {
       return this.$store.state.categories;
     },
 
-    displayedCategories () {
-	  return this.paginate(this.categories);
-	},
+    categoriesTotalNumber() {
+      return this.$store.state.lengthCategories;
+    },
 
     isCategoryOpen () {
       return (this.$route.name === 'CategoryCreation' || this.$route.name === 'CategoryUpdate');
@@ -94,7 +94,7 @@ export default {
     setPages() {
       // reinitialize pages array before re running the method 
       this.pages = [];
-      let numberOfPages = Math.ceil(this.categories.length/this.categoriesPerPage);
+      let numberOfPages = Math.ceil(this.categoriesTotalNumber/this.categoriesPerPage);
       this.lastPage = numberOfPages;
 
       for (let i = 1; i <= numberOfPages; i++) {
@@ -106,25 +106,25 @@ export default {
         this.page = value;
     },
 
-    paginate (categories) {
-	  let from = (this.page * this.categoriesPerPage) - this.categoriesPerPage;
-	  let to = (this.page * this.categoriesPerPage);
-	  return  categories.slice(from, to);
-	},
-
     deleteCategory(categoryId) {
       this.$store.dispatch("deleteCategory", categoryId);
     },
   },
 
   watch: {
-	categories() {
-	  this.setPages();
-	}
+    categoriesTotalNumber() {
+      this.setPages();
+    },
+
+    page() {
+      this.$store.dispatch("getCategories", { 'offset': (this.page - 1) * this.categoriesPerPage, 'limit': this.categoriesPerPage });
+    }
   },
 
   mounted() {
-    this.$store.dispatch("getCategories");
+    this.$store.dispatch("getCategories", { 'offset': (this.page - 1) * this.categoriesPerPage, 'limit': this.categoriesPerPage });
+    this.$store.dispatch("getCategoriesNumber");
+    this.setPages();
   }
 }
 </script>

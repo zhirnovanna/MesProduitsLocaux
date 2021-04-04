@@ -3,24 +3,36 @@ export const mutations = {
         state.products = products;
     },
 
-    SET_CATEGORIES(state, categories) {
-        state.categories = categories;
-    },
-
-    SET_REGIONS(state, regions) {
-        state.regions = regions;
+    SET_PRODUCTS_NUMBER(state, productsNumber) {
+        state.lengthMatchedProducts = productsNumber;
     },
 
     SET_PRODUCT(state, product) {
         state.product = product;
     },
 
-    SET_CATEGORY(state, category) {
-        state.category = category;
+    SET_REGIONS(state, regions) {
+        state.regions = regions;
+    },
+
+    SET_REGIONS_NUMBER(state, regionsNumber) {
+        state.lengthRegions = regionsNumber;
     },
 
     SET_REGION(state, region) {
         state.region = region;
+    },
+
+    SET_CATEGORIES(state, categories) {
+        state.categories = categories;
+    },
+
+    SET_CATEGORIES_NUMBER(state, categoriesNumber) {
+        state.lengthCategories = categoriesNumber;
+    },
+
+    SET_CATEGORY(state, category) {
+        state.category = category;
     },
 
     ADD_PRODUCT(state, newProduct) {
