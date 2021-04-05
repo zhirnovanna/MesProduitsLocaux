@@ -1,55 +1,70 @@
 import { createStore } from 'vuex'
-import auth from './auth'
-import {mutations} from './mutations';
-import {actions} from './actions';
-import crud from './modules/crud'
 
 // API root endpoint
-export const ENDPOINT = 'https://api-mesproduitslocaux.herokuapp.com/api/';
+const ENDPOINT = 'http://127.0.0.1:8000/api/';
 
 export default createStore({
   state: {
     products: [],
-    product: {},
-    categories: [],
-    category: {},
-    regions: [],
-    region: {}
+    product: {}
   },
-
-  getters: {
-    productsNames(state) {
-      let productsNames = [];
-      for(const product of state.products) {
-        productsNames.push(product.name);
-      }
-      return productsNames;
+  mutations: {
+    SET_PRODUCTS(state, products) {
+      state.products = products;
     },
 
-    categoriesNames(state) {
-      let categoriesNames = [];
-      for(const category of state.categories) {
-        categoriesNames.push(category.name);
+    SET_PRODUCT(state, product) {
+      state.product = product;
+    },
+  },
+  actions: {
+    async getAllProducts ({ commit }) {
+      // get all products
+      let response = await fetch(ENDPOINT + 'products');
+
+      if (!response.ok) {
+          const message = `An error has occured: ${response.status}`;
+          console.log(message);
+          return null;
       }
-      return categoriesNames;
+
+      const data = await response.json();
+
+      commit('SET_PRODUCTS', data);
     },
 
-    regionsNames(state) {
-      let regionsNames = [];
-      for(const region of state.regions) {
-        regionsNames.push(region.name);
+    async getPartialProducts ({ commit }, pagination) {
+      // get a partial set of products for pagination
+      // pagination parameter must me an object with offset key and limit key
+      // offset and limit values must be integers and positive
+      let response = await fetch(ENDPOINT + 'products?offset=' + pagination.offset + '&limit=' + pagination.limit);
+
+      if (!response.ok) {
+          const message = `An error has occured: ${response.status}`;
+          console.log(message);
+          return null;
       }
-      return regionsNames;
-    }
 
+      const data = await response.json();
+
+      commit('SET_PRODUCTS', data);
+    },
+
+    async getProduct ({ commit }, productId) {
+      // get one product data by id
+      let response = await fetch(ENDPOINT + 'products/' + productId);
+
+      if (!response.ok) {
+          const message = `An error has occured: ${response.status}`;
+          console.log(message);
+          return null;
+      }
+
+      const data = await response.json();
+
+      commit('SET_PRODUCT', data);
+    },
   },
-
-  mutations,
-
-  actions,
-
   modules: {
-    auth,
-    crud,
   }
 })

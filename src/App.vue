@@ -1,33 +1,28 @@
 <template>
-  <div id="app">
-    <TheNavigation/>
-    <Header/>
-    <router-view/>
-    <Footer/>
+  <div id="nav">
   </div>
+  <router-view/>
 </template>
-
-<script>
-// @ is an alias to /src
-import TheNavigation from '@/components/Layouts/TheNavigation'
-import Header from '@/components/Layouts/Header.vue'
-import Footer from '@/components/Layouts/Footer.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Header,
-    TheNavigation,
-    Footer
-  }
-}
-</script>
 
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
   color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
