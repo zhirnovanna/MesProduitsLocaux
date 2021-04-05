@@ -90,10 +90,7 @@ export default {
         image: {
             get() {
                 return this.modelImage
-            },
-            /*set(image) {
-                this.$emit('update:modelImage', image)
-            }*/
+            }
         },
         
         categoryId: {
@@ -154,7 +151,10 @@ export default {
             </div>
             <div class="form-group mb-4">
                 <label for="imgFile">Fichier image du produit</label>
-                <input type="file" name="imgFile" id="imgFile" class="form-control" @change="imageFileUpload" accept=".jpeg, .jpg, .png, .gif">
+                <div class="custom-file">
+                    <label for="imgFile" class="custom-file-label text-muted">Format JPEG, PNG ou GIF</label>
+                    <input type="file" name="imgFile" id="imgFile" class="custom-file-input" @change="imageFileUpload" accept=".jpeg, .jpg, .png, .gif">
+                </div>
                 <div class="invalid-feedback" ref="imgFeedback"></div>
                 <img v-if="image !== null" :src="image" alt="Photo du produit" class="d-block m-2">
             </div>

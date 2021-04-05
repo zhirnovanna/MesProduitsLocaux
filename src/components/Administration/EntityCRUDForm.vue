@@ -39,12 +39,15 @@ export default {
         icon: {
             get() {
                 return this.modelIcon
-            },
-            set(icon) {
-                this.$emit('update:modelIcon', icon);
             }
         },
     },
+
+    methods: {
+        imageFileUpload(event) {
+            this.$emit('update:modelIcon', event, this.$refs.iconFeedback);
+        }
+    }
 }
 
 </script>
@@ -65,9 +68,12 @@ export default {
             </div>
 
             <div v-if="modelEntity === 'catégorie'" class="form-group mb-4">
-                <label for="icon">Chemin vers de l'icone de la catégorie</label>
-                <input type="text" name="icon" id="icon" v-model="icon" class="form-control" maxlength="45" required>
-                <div class="invalid-feedback">Le chemin vers l'icone doit comporter 45 caractères maximum.</div>
+                <label for="imgFile">Fichier image de l'icône de la catégorie</label>
+                <div class="custom-file">
+                    <label for="imgFile" class="custom-file-label text-muted">Format JPEG, PNG ou GIF</label>
+                    <input type="file" name="imgFile" id="imgFile" class="custom-file-input" @change="imageFileUpload" accept=".jpeg, .jpg, .png, .gif">
+                </div>
+                <div class="invalid-feedback" ref="iconFeedback"></div>
                 <img v-if="icon !== null" :src="icon" alt="Icone de la catégorie" class="d-block m-2">
             </div>
 
