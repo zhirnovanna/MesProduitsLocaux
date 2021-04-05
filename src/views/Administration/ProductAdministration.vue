@@ -90,7 +90,7 @@ export default {
         this.description = this.product.description;
         this.updatePrice(this.product.price);
         this.updateQuantity(this.product.quantity);
-        this.updateImage(this.product.image);
+        this.image = this.product.image;
         this.updateCategoryId(this.product.category_id);
         this.updateRegionId(this.product.region_id);
       }
@@ -183,15 +183,39 @@ export default {
     },
     
     updatePrice(value) {
-        this.price = value;
+      this.price = value;
     },
 
     updateQuantity(value) {
-        this.quantity = value;
+      this.quantity = value;
     },
 
-    updateImage(value) {
-        this.image = value;
+    updateImage(event ,feedbackMessageElement) {
+      let file = event.target.files[0];
+
+      if(!file || file.size > 300 * 1024 || file.size === 0) {
+        event.target.setCustomValidity('Le fichier est obligatoire et doit faire moins de 300ko.');
+        feedbackMessageElement.innerHTML = 'Le fichier est obligatoire et doit faire moins de 300ko.';
+        event.target.reportValidity();
+
+      } else if (file.type !== 'image/png' && file.type !== 'image/jpeg' && file.type !== 'image/gif') {
+        event.target.setCustomValidity('Le fichier n\'est pas dans un format valide. Veuillez soumettre un fichier JPG, PNG ou GIF.');
+        feedbackMessageElement.innerHTML = 'Le fichier n\'est pas dans un format valide. Veuillez soumettre un fichier JPG, PNG ou GIF.';
+        event.target.reportValidity();
+
+      } else {
+        event.target.setCustomValidity('');
+        event.target.reportValidity();
+
+        let reader = new FileReader();
+        let vm = this;
+        reader.onloadend = function() {
+          let img = reader.result;
+          //console.log('RESULT', img)
+          vm.image = img;
+        }
+        reader.readAsDataURL(file);
+      }
     },
 
     updateCategoryId(value) {

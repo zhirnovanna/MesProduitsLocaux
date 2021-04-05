@@ -91,9 +91,9 @@ export default {
             get() {
                 return this.modelImage
             },
-            set(image) {
+            /*set(image) {
                 this.$emit('update:modelImage', image)
-            }
+            }*/
         },
         
         categoryId: {
@@ -114,6 +114,12 @@ export default {
             }
         }
     },
+
+    methods: {
+        imageFileUpload(event) {
+            this.$emit('update:modelImage', event, this.$refs.imgFeedback);
+        }
+    }
 }
 
 </script>
@@ -122,17 +128,17 @@ export default {
     <div class="w-100 pt-2 pb-2 d-flex flex-column">
         <h4 v-if="modelId" class="mb-3">Modifier un produit</h4>
         <h4 v-else class="mb-3">Ajouter un produit</h4>
-        <form @submit.prevent="$emit('product-submission', $refs.form)" ref="form" class="needs-validation" novalidate>
+        <form @submit.prevent="$emit('product-submission', $refs.form)" ref="form" class="needs-validation" enctype="multipart/form-data" novalidate>
             <input type="hidden" name="id" v-model="id">
             <div class="form-group mb-4">
                 <label for="name">Nom du produit</label>
-                <input type="text" name="name" id="name" v-model="name" class="form-control" ref="nameInput">
+                <input type="text" name="name" id="name" v-model="name" class="form-control" ref="nameInput" required>
                 <div class="invalid-feedback" ref="nameFeedback"></div>
                 <small class="form-text text-muted">Le nom doit comporter 10 à 45 caractères.</small>
             </div>
             <div class="form-group mb-4">
                 <label for="description">Description du produit</label>
-                <textarea name="description" id="description" v-model="description" class="form-control block-form__description" ref="descTextarea"></textarea>
+                <textarea name="description" id="description" v-model="description" class="form-control block-form__description" ref="descTextarea" required></textarea>
                 <div class="invalid-feedback" ref="descFeedback"></div>
                 <small class="form-text text-muted">1000 caractères maximum</small>
             </div>
@@ -147,9 +153,9 @@ export default {
                 <div class="invalid-feedback">La quantité doit être un entier positif.</div>
             </div>
             <div class="form-group mb-4">
-                <label for="image">Adresse URL de l'image du produit</label>
-                <input type="text" name="image" id="image" v-model="image" class="form-control" pattern="https?://.{1,37}" required>
-                <div class="invalid-feedback">L'adresse de l'image doit être une adresse URL et comporter 45 caractères maximum.</div>
+                <label for="imgFile">Fichier image du produit</label>
+                <input type="file" name="imgFile" id="imgFile" class="form-control" @change="imageFileUpload" accept=".jpeg, .jpg, .png, .gif">
+                <div class="invalid-feedback" ref="imgFeedback"></div>
                 <img v-if="image !== null" :src="image" alt="Photo du produit" class="d-block m-2">
             </div>
             <div class="form-group mb-4">

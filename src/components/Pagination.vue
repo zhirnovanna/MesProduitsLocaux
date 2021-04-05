@@ -6,14 +6,6 @@ export default {
             type: [String, Number],
             required: true
         },
-        /*modelLastPage: {
-            type: [String, Number],
-            required: true
-        },
-        modelPages: {
-            type: Array,
-            required: true
-        }*/
         modelItemsPerPage: {
             type: [String, Number],
             required: true
