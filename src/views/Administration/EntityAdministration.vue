@@ -4,9 +4,11 @@
         @entity-submission='submitEntity'
         @update:modelName = 'updateName'
         @update:modelIcon = 'updateIcon'
+        @update:modelPath = 'updatePath'
         v-bind:modelId="entityId"
         v-bind:modelName="name"
         v-bind:modelIcon="icon"
+        v-bind:modelPath="path"
         v-bind:modelEntity="entityType"
     />
   </div>
@@ -26,7 +28,8 @@ export default {
   data() {
     return {
       name: null,
-      icon: null
+      icon: null,
+      path: null
     }
   },
 
@@ -64,9 +67,9 @@ export default {
     entitiesNames() {
       // get the names that are already taking for the entity we are administrating (as names must be unique)
       if (this.$route.name === 'CategoryCreation' || this.$route.name === 'CategoryUpdate') {
-        return this.$store.getters.categoriesNames;
+        return this.$store.state.crud.takenCategoryNames;
       } else if (this.$route.name === 'RegionCreation' || this.$route.name === 'RegionUpdate') {
-        return this.$store.getters.regionsNames;
+        return this.$store.state.crud.takenRegionNames;
       } else {
         return null;
       }
@@ -89,16 +92,28 @@ export default {
         if (this.$route.name === 'CategoryCreation' || this.$route.name === 'CategoryUpdate') {
           this.icon = this.entity.icon;
         }
+        if (this.$route.name === 'RegionCreation' || this.$route.name === 'RegionUpdate') {
+          this.path = this.entity.path;
+        }
       }
     }
   },
 
   mounted() {
     // in case of an update get the info of the entity to update
-    if (this.$route.name === 'CategoryUpdate') {
-      this.$store.dispatch("getCategory", this.entityId);
-    } else if (this.$route.name === 'RegionUpdate') {
-      this.$store.dispatch("getRegion", this.entityId);
+    if (this.$route.name === 'CategoryCreation' || this.$route.name === 'CategoryUpdate') {
+      this.$store.dispatch("getTakenCategoryNames");
+
+      if(this.$route.name === 'CategoryUpdate') {
+        this.$store.dispatch("getCategory", this.entityId);
+      }
+
+    } else if (this.$route.name === 'RegionCreation' || this.$route.name === 'RegionUpdate') {
+      this.$store.dispatch("getTakenRegionNames");
+
+      if(this.$route.name === 'RegionUpdate') {      
+        this.$store.dispatch("getRegion", this.entityId);
+      }
     }
   },
 
@@ -129,13 +144,15 @@ export default {
         } else if(this.$route.name === 'RegionUpdate') {
           this.$store.dispatch("editRegion", 
             {id: this.entityId, 
-            body: {'name': this.name}
+            body: {'name': this.name,
+            'path': this.path}
             });
           this.$router.push({ name: 'RegionsAdministration' });
 
         } else if(this.$route.name === 'RegionCreation') {
           this.$store.dispatch("createRegion", 
-            {'name': this.name}
+            {'name': this.name,
+            'path': this.path}
           );
           this.$router.push({ name: 'RegionsAdministration' });
 
@@ -188,6 +205,10 @@ export default {
         }
         reader.readAsDataURL(file);
       }
+    },
+
+    updatePath(value) {
+      this.path = value;
     }
 
   }

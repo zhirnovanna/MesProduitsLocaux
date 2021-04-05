@@ -10,6 +10,10 @@ export default {
             type: String,
             required: false
         },
+        modelPath: {
+            type: String,
+            required: false
+        },
         modelIcon: {
             type: String,
             required: false
@@ -33,6 +37,15 @@ export default {
             },
             set(name) {
                 this.$emit('update:modelName', name, this.$refs.entityNameInput, this.$refs.entityNameFeedback);
+            }
+        },
+
+        path: {
+            get() {
+                return this.modelPath
+            },
+            set(path) {
+                this.$emit('update:modelPath', path);
             }
         },
 
@@ -75,6 +88,12 @@ export default {
                 </div>
                 <div class="invalid-feedback" ref="iconFeedback"></div>
                 <img v-if="icon !== null" :src="icon" alt="Icone de la catégorie" class="d-block m-2">
+            </div>
+
+            <div v-if="modelEntity === 'région'" class="form-group mb-4">
+                <label for="path">Path du SVG de la {{ modelEntity }}</label>
+                <textarea name="path" id="path" v-model="path" class="form-control" ref="pathInput"></textarea>
+                <div class="invalid-feedback" ref="pathFeedback"></div>
             </div>
 
             <input type="submit" value="Valider" class="btn btn-primary">

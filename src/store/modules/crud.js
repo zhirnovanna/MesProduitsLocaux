@@ -4,7 +4,11 @@ import { ENDPOINT } from './../index';
 const state = () => ({
     users: [],
     userToUpdate: {},
-    lengthUsers: 0
+    lengthUsers: 0,
+    takenProductNames: [],
+    takenCategoryNames: [],
+    takenRegionNames: [],
+    takenUserEmails: [],
 })
 
 const getters = {
@@ -49,10 +53,41 @@ const mutations = {
             state.userToUpdate = {};
         }
     },
+
+    SET_PRODUCT_NAMES(state, takenNames) {
+        state.takenProductNames = takenNames;
+    },
+
+    SET_REGION_NAMES(state, takenNames) {
+        state.takenRegionNames = takenNames;
+    },
+
+    SET_CATEGORY_NAMES(state, takenNames) {
+        state.takenCategoryNames = takenNames;
+    },
+
+    SET_USER_EMAILS(state, takenEmails) {
+        state.takenUserEmails = takenEmails;
+    },
 }
 
 const actions = {
-    // products related actions 
+    // products related actions
+
+    async getTakenProductNames ({ commit }) {
+        // get all product names
+        let response = await fetch(ENDPOINT + 'products/names');
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            console.log(message);
+            return null;
+        }
+
+        const data = await response.json();
+
+        commit('SET_PRODUCT_NAMES', data);
+    },
 
     async createProduct ({ commit }, createdProduct) {
         // create a new product from crud
@@ -108,6 +143,21 @@ const actions = {
 
     // categories related actions
 
+    async getTakenCategoryNames ({ commit }) {
+        // get all category names
+        let response = await fetch(ENDPOINT + 'categories/names');
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            console.log(message);
+            return null;
+        }
+
+        const data = await response.json();
+
+        commit('SET_CATEGORY_NAMES', data);
+    },
+
     async createCategory ({ commit }, createdCategory) {
         // create a new category from crud
         let response = await fetch(ENDPOINT + 'categories', {
@@ -162,7 +212,22 @@ const actions = {
 
     // regions related actions
 
-       async createRegion ({ commit }, createdRegion) {
+    async getTakenRegionNames ({ commit }) {
+        // get all region names
+        let response = await fetch(ENDPOINT + 'regions/names');
+    
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            console.log(message);
+            return null;
+        }
+    
+        const data = await response.json();
+    
+        commit('SET_REGION_NAMES', data);
+    },
+
+    async createRegion ({ commit }, createdRegion) {
         // create a new region from crud
         let response = await fetch(ENDPOINT + 'regions', {
             method: 'POST', 
@@ -259,6 +324,21 @@ const actions = {
         const data = await response.json();
 
         commit('SET_USER', data);
+    },
+
+    async getTakenUserEmails ({ commit }) {
+        // get all user emails
+        let response = await fetch(ENDPOINT + 'users/emails');
+
+        if (!response.ok) {
+            const message = `An error has occured: ${response.status}`;
+            console.log(message);
+            return null;
+        }
+
+        const data = await response.json();
+
+        commit('SET_USER_EMAILS', data);
     },
 
     async editUser ({ commit }, editedUser) {

@@ -2,14 +2,12 @@
   <div class="container">
     <div class="mt-5 mb-4">
 
-        <div class="block-map my-3">
-          <h4 class="block-map__title">Choisissez votre région</h4>
-          <div class="d-flex flex-column align-items-start my-2">
-          <router-link v-for="region in regions" v-bind:key="region.id" :to="{ name: 'ProductsDisplay', params: { regionId: region.id } }">{{ region.name }}</router-link>
-          </div>
+        <div class="my-5">
+          <h4 class="block-map__title"><i class="bi bi-geo-alt mr-2"></i>Veuillez sélectionner votre région</h4>
+          <Map/>
         </div>
 
-        <div class="py-2 d-flex block-infos">
+        <div class="py-4 d-flex block-infos">
           <div class="d-flex flex-column align-items-center block-infos__item">
             <i class="bi bi-truck block-infos__icon"></i>
             <div class="h6 block-infos__title">Livraison gratuite à partir de 50€</div>
@@ -34,10 +32,13 @@
 <script>
 
 // @ is an alias to /src
+import Map from '@/components/Map.vue'
+
 
 export default {
   name: 'Home',
   components: {
+    Map,
   },
 
     computed: {

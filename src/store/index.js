@@ -22,30 +22,6 @@ export default createStore({
   },
 
   getters: {
-    productsNames(state) {
-      let productsNames = [];
-      for(const product of state.products) {
-        productsNames.push(product.name);
-      }
-      return productsNames;
-    },
-
-    categoriesNames(state) {
-      let categoriesNames = [];
-      for(const category of state.categories) {
-        categoriesNames.push(category.name);
-      }
-      return categoriesNames;
-    },
-
-    regionsNames(state) {
-      let regionsNames = [];
-      for(const region of state.regions) {
-        regionsNames.push(region.name);
-      }
-      return regionsNames;
-    }
-
   },
 
   mutations,

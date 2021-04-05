@@ -2,8 +2,6 @@
   <div class="p-4 modal-window">
     <UserCRUDForm 
         @user-submission='submitUser'
-        @update:modelLastName = 'updateLastName'
-        @update:modelFirstName = 'updateFirstName'
         @update:modelEmail = 'updateEmail'
         @update:modelIsAdmin = 'updateIsAdmin'
         v-bind:modelId="userId"
@@ -58,7 +56,7 @@ export default {
     },
 
     usersEmails() {
-      return this.$store.getters.usersEmails;
+      return this.$store.state.crud.takenUserEmails;
     },
 
     takenUsersEmails() {
@@ -89,6 +87,7 @@ export default {
 
   mounted() {
     this.$store.dispatch("getUsers");
+    this.$store.dispatch("getTakenUserEmails");
 
     // in case of an update get the info of the user to update
     if(this.userId) {

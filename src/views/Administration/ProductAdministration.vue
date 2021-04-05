@@ -69,7 +69,7 @@ export default {
     },
 
     productsNames() {
-      return this.$store.getters.productsNames;
+      return this.$store.state.crud.takenProductNames;
     },
 
     takenProductNames() {
@@ -100,6 +100,7 @@ export default {
   mounted() {
     this.$store.dispatch("getCategories");
     this.$store.dispatch("getRegions");
+    this.$store.dispatch("getTakenProductNames");
 
     // in case of an update get the info of the product to update
     if(this.productId) {
