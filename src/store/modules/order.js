@@ -25,7 +25,7 @@ const mutations = {
 }
 
 const actions = {
-    getRegionCode({ commit }, regionName) {
+    async getRegionCode({ commit }, regionName) {
         // get all products
         let response = await fetch('https://geo.api.gouv.fr/regions?nom=' + regionName);
 
@@ -40,7 +40,7 @@ const actions = {
         commit('SET_REGION_CODE', data.code);
     },
 
-    getRegionDepartments({ commit }, regionCode) {
+    async getRegionDepartments({ commit }, regionCode) {
         // get all products
         let response = await fetch('https://geo.api.gouv.fr/regions/' + regionCode + '/departements');
 

@@ -57,7 +57,7 @@
                     </button>
                   </div>
                   <div class="btn-cart">
-                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Ajouter au panier">
+                    <button @click="addToCart(1)" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Ajouter au panier">
                       <i class="bi bi-basket3"></i>
                     </button>
                   </div>
@@ -68,6 +68,7 @@
     </div>
 
     <ProductModale 
+    @add-to-cart = 'addToCart'
     v-bind:revele="revele" 
     v-bind:toggleModale="toggleModale"
     v-bind:product="product" />
@@ -97,6 +98,39 @@ export default {
     toggleModale: function() {
       this.revele = !this.revele;
     },
+
+    addToCart(quantityWanted) {
+      console.log(localStorage.getItem('mesproduitslocaux-cart'));
+      if(Number.isInteger(quantityWanted) && quantityWanted >= 1 && quantityWanted <= this.product.quantity) {
+        if(!localStorage.getItem('mesproduitslocaux-cart')) {
+          let newCart = JSON.stringify({'region': this.product.region_id, 'content': [{'id': this.product.id, 'quantity': quantityWanted}]});
+          localStorage.setItem('mesproduitslocaux-cart', newCart);
+        } else {
+          let currentCart = JSON.parse(localStorage.getItem('mesproduitslocaux-cart'));
+          if(currentCart.region != this.product.region_id) {
+            alert('Vous avez déjà dans votre panier un ou des article(s) provenant d\'une autre région. Veuillez continuer votre shopping dans cette même région ou vider votre panier.')
+          } else {
+            const index = currentCart.content.findIndex(item => item.id === this.product.id);
+            if (index === -1) {
+              currentCart.content.push({'id': this.product.id, 'quantity': quantityWanted});
+            } else {
+              let newTotal = currentCart.content[index].quantity + quantityWanted;
+              if(newTotal < this.product.quantity) {
+                currentCart.content[index].quantity += quantityWanted;
+              } else {
+                currentCart.content[index].quantity = this.product.quantity;
+                alert('Quantité maximum atteinte pour ce produit');
+              }
+            }
+            let newCartValue = JSON.stringify(currentCart);
+            localStorage.setItem('mesproduitslocaux-cart', newCartValue);
+
+          }
+        }
+      } else {
+        alert('Quantité indisponible !');
+      }
+    }
   },
 }
 </script>

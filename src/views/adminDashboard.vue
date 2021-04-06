@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-4">
     <div class="container">
         <div class="card card-default">
             <div class="card-header">Admin Dashboard</div>
