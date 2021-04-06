@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="my-2">
+    <div class="my-2 mx-auto">
       <div class="product-container">
         <div class="card product-card">
           <img :src="product.image" class="card-img-top" alt="">

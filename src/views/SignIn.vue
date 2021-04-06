@@ -21,7 +21,7 @@
             </div>
 
             <div>
-              <button class="btn btn-lg btn-primary btn-block" type="submit">
+              <button class="btn btn-lg btn-custom-primary btn-block" type="submit">
                 Valider
               </button>
             </div>

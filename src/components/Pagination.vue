@@ -108,4 +108,13 @@ export default {
     .page-item {
         cursor: pointer;
     }
+
+    .page-link {
+        color: $primary-color;
+    }
+
+    .page-item.active .page-link {
+        background-color: $primary-color;
+        border-color: $primary-color;
+    }
 </style>

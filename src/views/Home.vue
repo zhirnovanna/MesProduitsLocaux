@@ -1,12 +1,15 @@
 <template>
-  <div class="container">
-    <div class="mt-5 mb-4">
+  <div class="mt-5 mb-4">
+    <div class="container">
+      <div class="my-5">
+        <h4 class="block-map__title"><i class="bi bi-geo-alt mr-2"></i>Veuillez sélectionner votre région</h4>
+        <Map/>
+      </div>
+    </div>
 
-        <div class="my-5">
-          <h4 class="block-map__title"><i class="bi bi-geo-alt mr-2"></i>Veuillez sélectionner votre région</h4>
-          <Map/>
-        </div>
+        <CategoriesNavigation/>
 
+    <div class="container">
         <div class="py-4 d-flex block-infos">
           <div class="d-flex flex-column align-items-center block-infos__item">
             <i class="bi bi-truck block-infos__icon"></i>
@@ -33,12 +36,14 @@
 
 // @ is an alias to /src
 import Map from '@/components/Map.vue'
+import CategoriesNavigation from '@/components/FiltersAndSearch/CategoriesNavigation.vue'
 
 
 export default {
   name: 'Home',
   components: {
     Map,
+    CategoriesNavigation
   },
 
     computed: {

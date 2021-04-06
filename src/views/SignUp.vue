@@ -41,7 +41,7 @@
             <input type="password" v-model="form.password" class="form-control" name="password" placeholder="ex:mesproduitslocaux">
           </div>
 
-          <button type="submit" class="btn btn-lg btn-primary btn-block">Valider</button>
+          <button type="submit" class="btn btn-lg btn-custom-primary btn-block">Valider</button>
         </form>
       </div>
     </div>
