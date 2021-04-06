@@ -35,8 +35,7 @@ const routes = [
     name: 'adminDashboard',
     component: adminDashboard,
     beforeEnter: (to, from, next) => {
-      console.log(store.getters); 
-      console.log(store.getters[0]); 
+
 
       if (store.getters['auth/user'] === null ) {
         return next({
