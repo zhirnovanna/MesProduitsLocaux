@@ -35,7 +35,6 @@
 // @ is an alias to /src
 import { mapActions } from 'vuex'
 
-
 export default {
   name: 'SignIn',
   components: {
@@ -54,12 +53,22 @@ export default {
         signIn: 'auth/signIn'
       }),
         submit(){
+
             this.signIn(this.form).then(() => {
-             this.$router.replace({
+            // var redirect = this.$auth.redirect()
+            // const redirectTo = redirect ? redirect.from.email : this.$auth.user().role === 1 ? 'adminDashboard' : 'Dashboard'
+            // this.$router.push({name: redirectTo})
+
+
+            this.$router.replace({
                name: 'Dashboard'
              })
+            
 }) 
        }
   }
 }
 </script>
+
+
+            
