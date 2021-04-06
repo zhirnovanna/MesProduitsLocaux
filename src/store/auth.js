@@ -6,6 +6,7 @@ export default {
   state: {
     token: null,
     user: null,
+    userType: null,
   },
 
   getters: {
@@ -15,7 +16,11 @@ export default {
 
     user (state) {
       return state.user
-    }
+    },
+
+    // userType(state){
+    //   return state.userType
+    // },
   },
 
   mutations: {
@@ -25,13 +30,17 @@ export default {
 
     SET_USER (state, data) {
       state.user = data
-    }
+    },
+
+    // authUser(state, userData){
+    //   state.userType = userData.type
+    // },
   },
 
   actions: {
     async signIn ({ dispatch }, credentials) {
       await axios.post('auth/signin', credentials).then(response => {
-        console.log(response.data)
+       // console.log(response.data)
         return dispatch('attempt', response.data.access_token)
        })
     },
@@ -47,7 +56,7 @@ export default {
 
       try {
         let response = await axios.post('auth/me')
-        console.log(state.token)
+        //console.log(state.token)
         commit('SET_USER', response.data)
       } catch (e) {
         commit('SET_TOKEN', null)
@@ -63,8 +72,10 @@ export default {
       })
     },
     async signUp({dispatch}, form) {
-      console.log(form);
+      //console.log(form);
+      
       await axios.post('auth/signup', form)
+
       let UserForm = new FormData()
       UserForm.append('email', form.email)
       UserForm.append('password', form.password)

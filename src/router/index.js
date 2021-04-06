@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
 import Dashboard from '../views/Dashboard.vue'
+import adminDashboard from '../views/adminDashboard.vue'
 import store from '@/store'
 import ProductsDisplay from '../views/ProductsDisplay.vue'
 import Administration from '../views/Administration/Administration.vue'
@@ -28,6 +29,32 @@ const routes = [
     name: 'SignUp',
     component: SignUp
   },
+  // ADMIN ROUTES
+  {
+    path: '/admin',
+    name: 'adminDashboard',
+    component: adminDashboard,
+    beforeEnter: (to, from, next) => {
+      console.log(store.getters); 
+      console.log(store.getters[0]); 
+
+      if (store.getters['auth/user'] === null ) {
+        return next({
+          name: 'Dashboard'
+        })
+      } 
+      if (store.getters['auth/authenticated'].admin === 1) {
+        console.log(store.getters['auth/authenticated']); 
+
+        return next()
+      } else {
+        console.log("Not Admin")
+        return next({
+          name: 'Dashboard'
+          })
+      }
+    }
+  },
   {
     path: '/dashboard',
     name: 'Dashboard',
@@ -37,9 +64,16 @@ const routes = [
         return next({
           name: 'SignIn'
         })
+      } else { 
+          if (store.getters['auth/authenticated'].admin === 0) {
+          next()
+         }
+           else if (store.getters['auth/authenticated'].admin === 1) {
+             return next({
+               name: 'adminDashboard'
+               })
+           }
       }
-
-      next()
     }
   },
   {
