@@ -12,13 +12,6 @@ const state = () => ({
 })
 
 const getters = {
-    usersEmails(state) {
-        let usersEmails = [];
-        for(const user of state.users) {
-          usersEmails.push(user.email);
-        }
-        return usersEmails;
-    },
 }
 
 const mutations = {
