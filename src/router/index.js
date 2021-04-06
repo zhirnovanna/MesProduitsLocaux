@@ -86,7 +86,16 @@ const routes = [
   {
     path: '/administration',
     name: 'Administration',
-    component: Administration
+    component: Administration,
+    beforeEnter: (to, from, next) => {
+      if (store.getters['auth/user'] !== null && store.getters['auth/authenticated'].admin === 1) {
+        return next()
+      } else {
+        return next({
+          name: 'Home'
+          })
+      }
+    }
   },
   {
     path: '/administration/products',
@@ -103,7 +112,16 @@ const routes = [
         name: 'ProductCreation',
         component: ProductAdministration
       }
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      if (store.getters['auth/user'] !== null && store.getters['auth/authenticated'].admin === 1) {
+        return next()
+      } else {
+        return next({
+          name: 'Home'
+          })
+      }
+    }
   },
   {
     path: '/administration/categories',
@@ -120,7 +138,16 @@ const routes = [
         name: 'CategoryCreation',
         component: EntityAdministration
       }
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      if (store.getters['auth/user'] !== null && store.getters['auth/authenticated'].admin === 1) {
+        return next()
+      } else {
+        return next({
+          name: 'Home'
+          })
+      }
+    }
   },
   {
     path: '/administration/regions',
@@ -137,7 +164,16 @@ const routes = [
         name: 'RegionCreation',
         component: EntityAdministration
       }
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      if (store.getters['auth/user'] !== null && store.getters['auth/authenticated'].admin === 1) {
+        return next()
+      } else {
+        return next({
+          name: 'Home'
+          })
+      }
+    }
   },
   {
     path: '/administration/users',
@@ -149,7 +185,16 @@ const routes = [
         name: 'UserUpdate',
         component: UserAdministration
       },
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      if (store.getters['auth/user'] !== null && store.getters['auth/authenticated'].admin === 1) {
+        return next()
+      } else {
+        return next({
+          name: 'Home'
+          })
+      }
+    }
   },
 ]
 
