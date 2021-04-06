@@ -7,8 +7,6 @@
       </div>
     </div>
 
-        <CategoriesNavigation/>
-
     <div class="container">
         <div class="py-4 d-flex block-infos">
           <div class="d-flex flex-column align-items-center block-infos__item">
@@ -36,14 +34,12 @@
 
 // @ is an alias to /src
 import Map from '@/components/Map.vue'
-import CategoriesNavigation from '@/components/FiltersAndSearch/CategoriesNavigation.vue'
 
 
 export default {
   name: 'Home',
   components: {
     Map,
-    CategoriesNavigation
   },
 
     computed: {
