@@ -6,35 +6,35 @@
           <img :src="product.image" class="card-img-top" alt="">
           <div class="stars">
           <fieldset class="rating-stars">
-            <input type="radio" id="star5" name="rating" value="5" />
-            <label class="full" for="star5" title="Great"></label>
+            <input type="radio" :id="'star5' + product.id" :name="'rating' + product.id" value="5" />
+            <label class="full" :for="'star5' + product.id" title="Great"></label>
 
-            <input type="radio" id="star4half" name="rating" value="4.5" />
-            <label class="half" for="star4half" title="Pretty good"></label>
+            <input type="radio" :id="'star4half' + product.id" :name="'rating' + product.id" value="4.5" />
+            <label class="half" :for="'star4half' + product.id" title="Pretty good"></label>
 
-            <input type="radio" id="star4" name="rating" value="4" />
-            <label class="full" for="star4" title="Pretty good"></label>
+            <input type="radio" :id="'star4' + product.id" :name="'rating' + product.id" value="4" />
+            <label class="full" :for="'star4' + product.id" title="Pretty good"></label>
 
-            <input type="radio" id="star3half" name="rating" value="3.5" />
-            <label class="half" for="star3half" title="Average"></label>
+            <input type="radio" :id="'star3half' + product.id" :name="'rating' + product.id" value="3.5" />
+            <label class="half" :for="'star3half' + product.id" title="Average"></label>
 
-            <input type="radio" id="star3" name="rating" value="3" />
-            <label class="full" for="star3" title="Average"></label>
+            <input type="radio" :id="'star3' + product.id" :name="'rating' + product.id" value="3" />
+            <label class="full" :for="'star3' + product.id" title="Average"></label>
 
-            <input type="radio" id="star2half" name="rating" value="2.5" />
-            <label class="half" for="star2half" title="Bad"></label>
+            <input type="radio" :id="'star2half' + product.id" :name="'rating' + product.id" value="2.5" />
+            <label class="half" :for="'star2half' + product.id" title="Bad"></label>
 
-            <input type="radio" id="star2" name="rating" value="2" />
-            <label class="full" for="star2" title="Bad"></label>
+            <input type="radio" :id="'star2' + product.id" :name="'rating' + product.id" value="2" />
+            <label class="full" :for="'star2' + product.id" title="Bad"></label>
 
-            <input type="radio" id="star1half" name="rating" value="1 and a half" />
-            <label class="half" for="star1half" title="Sucks"></label>
+            <input type="radio" :id="'star1half' + product.id" :name="'rating' + product.id" value="1 and a half" />
+            <label class="half" :for="'star1half' + product.id" title="Sucks"></label>
 
-            <input type="radio" id="star1" name="rating" value="1" />
-            <label class="full" for="star1" title="Sucks"></label>
+            <input type="radio" :id="'star1' + product.id" :name="'rating' + product.id" value="1" />
+            <label class="full" :for="'star1' + product.id" title="Sucks"></label>
 
-            <input type="radio" id="starhalf" name="rating" value="half" />
-            <label class="half" for="starhalf" title="Sucks"></label>
+            <input type="radio" :id="'starhalf' + product.id" :name="'rating' + product.id" value="half" />
+            <label class="half" :for="'starhalf' + product.id" title="Sucks"></label>
           </fieldset>
           </div>
           <div class="card-body">
@@ -104,36 +104,6 @@ export default {
                                                 'quantityAvailable': this.product.quantity,
                                                 'productId': this.product.id,
                                                 'productRegion': this.product.region_id});
-      /*console.log(localStorage.getItem('mesproduitslocaux-cart'));
-      if(Number.isInteger(quantityWanted) && quantityWanted >= 1 && quantityWanted <= this.product.quantity) {
-        if(!localStorage.getItem('mesproduitslocaux-cart')) {
-          let newCart = JSON.stringify({'region': this.product.region_id, 'content': [{'id': this.product.id, 'quantity': quantityWanted}]});
-          localStorage.setItem('mesproduitslocaux-cart', newCart);
-        } else {
-          let currentCart = JSON.parse(localStorage.getItem('mesproduitslocaux-cart'));
-          if(currentCart.region != this.product.region_id) {
-            alert('Vous avez déjà dans votre panier un ou des article(s) provenant d\'une autre région. Veuillez continuer votre shopping dans cette même région ou vider votre panier.')
-          } else {
-            const index = currentCart.content.findIndex(item => item.id === this.product.id);
-            if (index === -1) {
-              currentCart.content.push({'id': this.product.id, 'quantity': quantityWanted});
-            } else {
-              let newTotal = currentCart.content[index].quantity + quantityWanted;
-              if(newTotal <= this.product.quantity) {
-                currentCart.content[index].quantity += quantityWanted;
-              } else {
-                currentCart.content[index].quantity = this.product.quantity;
-                alert('Quantité maximum atteinte pour ce produit');
-              }
-            }
-            let newCartValue = JSON.stringify(currentCart);
-            localStorage.setItem('mesproduitslocaux-cart', newCartValue);
-
-          }
-        }
-      } else {
-        alert('Quantité indisponible !');
-      }*/
     }
   },
 }
