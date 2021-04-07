@@ -37,7 +37,7 @@ export default {
                     <li @click="chooseCategory('')" v-bind:class="[currentCategoryModel === '' ? 'active' : '']" class="text-center flex-grow-0 flex-shrink-0 block-categories__list-item">
                         <div class="w-100 d-flex justify-content-center align-items-center">
                             <div class="mx-2 my-1 d-flex justify-content-center align-items-center block-categories__icon-wrapper">
-                                <img src="https://i.ibb.co/HHSSY3K/3602353.png" alt="Toutes les catégories" class="block-categories__icon">
+                                <img :src="require('@/assets/all_cats.png')" alt="Toutes les catégories" class="block-categories__icon">
                             </div>
                         </div>
                         <h6 class="mt-2 block-categories__name">Toutes</h6>
