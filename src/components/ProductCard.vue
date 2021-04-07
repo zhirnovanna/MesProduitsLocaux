@@ -6,35 +6,35 @@
           <img :src="product.image" class="card-img-top" alt="">
           <div class="stars">
           <fieldset class="rating-stars">
-            <input type="radio" id="star5" name="rating" value="5" />
-            <label class="full" for="star5" title="Great"></label>
+            <input type="radio" :id="'star5' + product.id" :name="'rating' + product.id" value="5" />
+            <label class="full" :for="'star5' + product.id" title="Great"></label>
 
-            <input type="radio" id="star4half" name="rating" value="4.5" />
-            <label class="half" for="star4half" title="Pretty good"></label>
+            <input type="radio" :id="'star4half' + product.id" :name="'rating' + product.id" value="4.5" />
+            <label class="half" :for="'star4half' + product.id" title="Pretty good"></label>
 
-            <input type="radio" id="star4" name="rating" value="4" />
-            <label class="full" for="star4" title="Pretty good"></label>
+            <input type="radio" :id="'star4' + product.id" :name="'rating' + product.id" value="4" />
+            <label class="full" :for="'star4' + product.id" title="Pretty good"></label>
 
-            <input type="radio" id="star3half" name="rating" value="3.5" />
-            <label class="half" for="star3half" title="Average"></label>
+            <input type="radio" :id="'star3half' + product.id" :name="'rating' + product.id" value="3.5" />
+            <label class="half" :for="'star3half' + product.id" title="Average"></label>
 
-            <input type="radio" id="star3" name="rating" value="3" />
-            <label class="full" for="star3" title="Average"></label>
+            <input type="radio" :id="'star3' + product.id" :name="'rating' + product.id" value="3" />
+            <label class="full" :for="'star3' + product.id" title="Average"></label>
 
-            <input type="radio" id="star2half" name="rating" value="2.5" />
-            <label class="half" for="star2half" title="Bad"></label>
+            <input type="radio" :id="'star2half' + product.id" :name="'rating' + product.id" value="2.5" />
+            <label class="half" :for="'star2half' + product.id" title="Bad"></label>
 
-            <input type="radio" id="star2" name="rating" value="2" />
-            <label class="full" for="star2" title="Bad"></label>
+            <input type="radio" :id="'star2' + product.id" :name="'rating' + product.id" value="2" />
+            <label class="full" :for="'star2' + product.id" title="Bad"></label>
 
-            <input type="radio" id="star1half" name="rating" value="1 and a half" />
-            <label class="half" for="star1half" title="Sucks"></label>
+            <input type="radio" :id="'star1half' + product.id" :name="'rating' + product.id" value="1 and a half" />
+            <label class="half" :for="'star1half' + product.id" title="Sucks"></label>
 
-            <input type="radio" id="star1" name="rating" value="1" />
-            <label class="full" for="star1" title="Sucks"></label>
+            <input type="radio" :id="'star1' + product.id" :name="'rating' + product.id" value="1" />
+            <label class="full" :for="'star1' + product.id" title="Sucks"></label>
 
-            <input type="radio" id="starhalf" name="rating" value="half" />
-            <label class="half" for="starhalf" title="Sucks"></label>
+            <input type="radio" :id="'starhalf' + product.id" :name="'rating' + product.id" value="half" />
+            <label class="half" :for="'starhalf' + product.id" title="Sucks"></label>
           </fieldset>
           </div>
           <div class="card-body">
@@ -57,7 +57,7 @@
                     </button>
                   </div>
                   <div class="btn-cart">
-                    <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Ajouter au panier">
+                    <button @click="addToCart(1)" type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Ajouter au panier">
                       <i class="bi bi-basket3"></i>
                     </button>
                   </div>
@@ -68,6 +68,7 @@
     </div>
 
     <ProductModale 
+    @add-to-cart = 'addToCart'
     v-bind:revele="revele" 
     v-bind:toggleModale="toggleModale"
     v-bind:product="product" />
@@ -97,6 +98,13 @@ export default {
     toggleModale: function() {
       this.revele = !this.revele;
     },
+
+    addToCart(quantityWanted) {
+      this.$store.dispatch("addToCartFromShop", {'quantityWanted': quantityWanted, 
+                                                'quantityAvailable': this.product.quantity,
+                                                'productId': this.product.id,
+                                                'productRegion': this.product.region_id});
+    }
   },
 }
 </script>

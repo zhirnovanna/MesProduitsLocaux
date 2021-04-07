@@ -64,8 +64,8 @@
                                     </div>
                                     <div class="blocks3">
                                         <label class="control-label" for="input-quantity">Qty</label>
-                                        <input type="text" name="quantity" value="1" size="2" id="input-quantity" class="form-control">
-                                        <button type="button" id="button-cartqv" data-loading-text="Loading..." class="btn btn-primary btn-lg btn-block">Ajouter au panier</button>
+                                        <input type="number" name="quantity" id="input-quantity" min="1" :max="product.quantity" class="form-control" v-model.number="quantityWanted">
+                                        <button @click="addToCartModal" type="button" id="button-cartqv" data-loading-text="Loading..." class="btn btn-primary btn-lg btn-block">Ajouter au panier</button>
                                     </div>
                                 </div>
                             </div>
@@ -81,6 +81,16 @@
 export default {
     name:'ProductModale',
     props: ['revele', 'toggleModale', 'product'],
+    data() {
+        return {
+            quantityWanted: '1',
+        }
+    },
+    methods: {
+        addToCartModal() {
+            this.$emit('add-to-cart', this.quantityWanted);
+        }
+    }
 }
 </script>
 
@@ -304,9 +314,9 @@ background-color: transparent;
     max-width: 100%;
 }
 #input-quantity {
+    width: 3.5rem;
     margin-right: 6px;
     margin-bottom: 5px;
-    width: auto;
     float: left;
     height: 37px;
     text-align: center;
@@ -318,7 +328,7 @@ background-color: transparent;
     border-radius: 0;
     border-color: #e9e9e9;
     transition: all 0.5s;
-    padding: 6px 12px;
+    padding: 0.25rem;
     background-color: #fff;
     background-image: none;
     border: 1px solid #ccc;

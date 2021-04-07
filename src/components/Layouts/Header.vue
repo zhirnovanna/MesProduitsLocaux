@@ -1,6 +1,14 @@
 <script>
 export default {
 	name: 'Header',
+    computed: {
+        cartArticlesNumber() {
+            return this.$store.state.cart.cartTotalItemsNumber;
+        }
+    },
+    mounted() {
+        this.$store.dispatch("getCartArticlesNumber");
+    }
 }
 
 </script>
@@ -14,9 +22,9 @@ export default {
                 <img :src="require('@/assets/map_mpl.png')" alt="Logo Mes Produits Locaux" class="header__logo-mobile">
             </router-link>
 
-            <router-link to="/" class="position-absolute header__cart">
+            <router-link to="/cart" class="position-absolute header__cart">
                 <div class="position-relative">
-                    <div class="header__cart-count">0</div>
+                    <div class="header__cart-count">{{cartArticlesNumber}}</div>
                     <i class="bi bi-cart3 header__cart-icon"></i>
                 </div>
             </router-link>

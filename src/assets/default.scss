@@ -35,3 +35,11 @@
         border-color: darken($primary-color, 3%);
     }
 }
+
+.ajs-button {
+    //@extend .btn;
+    border: solid 1px $primary-color;
+    border-radius: 0.2rem;
+    font-weight: 400;
+    @extend .btn-custom-primary;
+}

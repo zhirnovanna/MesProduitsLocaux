@@ -6,6 +6,7 @@ import Dashboard from '../views/Dashboard.vue'
 import adminDashboard from '../views/adminDashboard.vue'
 import store from '@/store'
 import ProductsDisplay from '../views/ProductsDisplay.vue'
+import Cart from '../views/Cart.vue'
 import Administration from '../views/Administration/Administration.vue'
 import ProductsAdministration from '../views/Administration/ProductsAdministration.vue'
 import ProductAdministration from '../views/Administration/ProductAdministration.vue'
@@ -82,6 +83,11 @@ const routes = [
     path: '/region/:regionId',
     name: 'ProductsDisplay',
     component: ProductsDisplay
+  },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: Cart
   },
   {
     path: '/administration',
