@@ -80,6 +80,24 @@ export default {
         takenUsersEmails() {
             return this.usersEmails.filter((userEmail) => userEmail !== this.user.email);
         },
+
+        lastName: {
+            get() {
+                return this.modelLastName;
+            },
+            set(value) {
+                this.modelLastName = value;
+            }
+        },
+
+        firstName: {
+            get() {
+                return this.modelFirstName;
+            },
+            set(value) {
+                this.modelFirstName = value;
+            }
+        },
         
         email: {
             get() {
@@ -111,10 +129,10 @@ export default {
         
         isAdmin: {
             get() {
-                return this.modelIsAdmin
+                return this.modelIsAdmin;
             },
-            set(isAdmin) {
-                this.$emit('update:modelIsAdmin', isAdmin, this.$refs.adminInput, this.$refs.adminFeedback)
+            set(value) {
+                this.modelLastName = value;
             }
         }
     },
