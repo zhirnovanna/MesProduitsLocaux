@@ -86,7 +86,7 @@ export default {
                             <div class="input-group-prepend">
                                 <span class="input-group-text pr-3">Prix minimum</span>
                             </div>
-                            <input type="number" name="min_price" class="form-control" v-model="min_price">
+                            <input type="number" name="min_price" class="form-control" min="0" v-model="min_price">
                         </div>
                     </div>
 
@@ -95,7 +95,7 @@ export default {
                             <div class="input-group-prepend ">
                                 <span class="input-group-text">Prix maximum</span>
                             </div>
-                            <input type="number" name="max_price" class="form-control" v-model="max_price">
+                            <input type="number" name="max_price" class="form-control" min="0" v-model="max_price">
                         </div>
                     </div>
 

@@ -115,6 +115,7 @@ export default {
     left: 0;
 }
 .modale {
+    max-width: 80%;
     background: #ffffff;
     color: #333;
     padding: 30px;
@@ -279,6 +280,7 @@ background-color: transparent;
 }
 /*-------------------------------------------------*/
 .description {
+    margin-left: 15px;
     margin-bottom: 10px;
     font-weight: 400;
     font-size: 13px;
