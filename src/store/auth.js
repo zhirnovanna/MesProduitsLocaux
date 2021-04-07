@@ -39,10 +39,15 @@ export default {
 
   actions: {
     async signIn ({ dispatch }, credentials) {
-      await axios.post('auth/signin', credentials).then(response => {
+      let restest = await axios.post('auth/signin', credentials).then(response => {
        // console.log(response.data)
-        return dispatch('attempt', response.data.access_token)
+       return dispatch('attempt', response.data.access_token)
        })
+       .catch(error =>  {
+        console.log(error);
+        return true;
+       })
+    return restest
     },
 
     async attempt ({ commit, state }, token) {

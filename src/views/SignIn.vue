@@ -3,6 +3,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 mt-5 mx-auto">
+        <div class="alert alert-danger" v-if="has_error">
+           <p>Erreur, impossible de se connecter avec ces identifiants.</p>
+        </div>
         <form @submit.prevent="submit">
           <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
             <div class="form-group">
@@ -10,7 +13,7 @@
                 Email
               </label>
 
-              <input type="text" class="form-control" name="email" placeholder="ex: mesproduitslocaux@yahoo.com" id="email" v-model="form.email">
+              <input type="text" class="form-control" name="email" placeholder="ex: mesproduitslocaux@yahoo.com" id="email" v-model="form.email" required>
             </div>
 
             <div class="form-group">
@@ -42,6 +45,8 @@ export default {
   },
     data () {
       return {
+        has_error: false,
+        errors: [],
         form: {
           email: '',
           password: '',
@@ -53,22 +58,15 @@ export default {
         signIn: 'auth/signIn'
       }),
         submit(){
-
-            this.signIn(this.form).then(() => {
-            // var redirect = this.$auth.redirect()
-            // const redirectTo = redirect ? redirect.from.email : this.$auth.user().role === 1 ? 'adminDashboard' : 'Dashboard'
-            // this.$router.push({name: redirectTo})
-
-
-            this.$router.replace({
-               name: 'Dashboard'
-             })
-            
-}) 
-       }
+          this.signIn(this.form).then((res) => {
+            if(res){
+              this.has_error = true;
+            }else{
+              this.$router.replace({
+                name: 'Dashboard'
+              })}
+          })
+        }
   }
 }
 </script>
-
-
-            
