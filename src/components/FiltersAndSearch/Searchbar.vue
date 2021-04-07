@@ -66,7 +66,6 @@ export default {
     },
 }
 
-// col-4 col-md-6 col-lg-5
 </script>
 
 <template>
