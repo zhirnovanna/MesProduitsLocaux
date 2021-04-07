@@ -13,7 +13,7 @@
                 Email
               </label>
 
-              <input type="text" class="form-control" name="email" placeholder="ex: mesproduitslocaux@yahoo.com" id="email" v-model="form.email" required>
+              <input type="text" class="form-control" name="email" placeholder="ex: mesproduitslocaux@yahoo.com" id="email" v-model="form.email">
             </div>
 
             <div class="form-group">
