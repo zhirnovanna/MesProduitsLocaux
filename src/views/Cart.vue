@@ -1,7 +1,7 @@
 <script>
 export default {
 	name: 'Cart',
-    
+
     computed: {
         cartLocalStorage() {
             return this.$store.state.cart.cartLocalStorage;

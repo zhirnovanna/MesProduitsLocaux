@@ -21,11 +21,15 @@ const mutations = {
         state.cartLocalStorage = cart;
     },
     SET_CART_PRODUCTS_IDS(state, cart) {
-        let ids = [];
-        for(const item of cart.content) {
-            ids.push(item.id);
+        if(!cart.content) {
+            state.cartProductsIds = [];
+        } else {
+            let ids = [];
+            for(const item of cart.content) {
+                ids.push(item.id);
+            }
+            state.cartProductsIds = ids;
         }
-        state.cartProductsIds = ids;
     },
     SET_CART_TOTAL_NUMBER(state, cart) {
         if(cart === 0) {
@@ -167,6 +171,17 @@ const actions = {
         } else if (newTotal <= 0 || product.quantity === 0) {
             // if removing the last item of this product from cart or if this product is no longer in stock
             currentCart.content = currentCart.content.filter((item) => item.id !== product.id);
+
+            if(currentCart.content.length === 0) {
+                // if the cart is now empty remove localstorage item (to also forget region)
+                localStorage.removeItem('mesproduitslocaux-cart');
+                currentCart = {}
+                commit('SET_CART_LOCALSTORAGE', currentCart);
+                commit('SET_CART_TOTAL_NUMBER', 0);
+                commit('SET_CART_PRODUCTS_IDS', currentCart);
+                return null;
+            }
+
             commit('SET_CART_PRODUCTS_IDS', currentCart);
         } else {
             currentCart.content[index].quantity = product.quantity;
@@ -182,11 +197,19 @@ const actions = {
     removeProductFromCart({ commit }, product) {
         let currentCart = JSON.parse(localStorage.getItem('mesproduitslocaux-cart'));
         currentCart.content = currentCart.content.filter((item) => item.id !== product.id);
-        let newCartValue = JSON.stringify(currentCart);
-        localStorage.setItem('mesproduitslocaux-cart', newCartValue);
+        if(currentCart.content.length === 0) {
+            // if the cart is now empty remove localstorage item (to also forget region)
+            localStorage.removeItem('mesproduitslocaux-cart');
+            currentCart = {}
+            commit('SET_CART_TOTAL_NUMBER', 0);
+        } else {
+            let newCartValue = JSON.stringify(currentCart);
+            localStorage.setItem('mesproduitslocaux-cart', newCartValue);
+            commit('SET_CART_TOTAL_NUMBER', currentCart);
+        }
+
         commit('SET_CART_LOCALSTORAGE', currentCart);
         commit('SET_CART_PRODUCTS_IDS', currentCart);
-        commit('SET_CART_TOTAL_NUMBER', currentCart);
     },
 }
 
