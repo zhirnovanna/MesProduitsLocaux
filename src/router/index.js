@@ -4,6 +4,7 @@ import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
 import Dashboard from '../views/Dashboard.vue'
 import adminDashboard from '../views/adminDashboard.vue'
+import ModifyMyInfo from '../views/ModifyMyInfo.vue'
 import store from '@/store'
 import ProductsDisplay from '../views/ProductsDisplay.vue'
 import Cart from '../views/Cart.vue'
@@ -56,7 +57,14 @@ const routes = [
           name: 'Dashboard'
           })
       }
-    }
+    },
+    children: [
+      {
+        path: '/admin/modifymyinfo/:id',
+        name: 'ModifyMyInfoAdmin',
+        component: ModifyMyInfo,
+      },
+    ]
   },
   {
     path: '/dashboard',
@@ -68,17 +76,24 @@ const routes = [
           name: 'SignIn'
         })
       } else { 
-          if (store.getters['auth/authenticated'].admin === 0) {
+        if (store.getters['auth/authenticated'].admin === 0) {
           next()
-         }
-           else if (store.getters['auth/authenticated'].admin === 1) {
-             return next({
+        } else if (store.getters['auth/authenticated'].admin === 1) {
+          return next({
                name: 'adminDashboard'
                })
-           }
+        }
       }
-    }
+    },
+    children: [
+      {
+        path: '/dashboard/modifymyinfo/:id',
+        name: 'ModifyMyInfo',
+        component: ModifyMyInfo,
+      },
+    ]
   },
+
   {
     path: '/region/:regionId',
     name: 'ProductsDisplay',
