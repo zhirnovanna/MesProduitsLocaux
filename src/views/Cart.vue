@@ -1,34 +1,20 @@
 <script>
 export default {
 	name: 'Cart',
-    data() {
-        return {
-
-        }
-    },
+    
     computed: {
         cartLocalStorage() {
-            if(!localStorage.getItem('mesproduitslocaux-cart')) {
-                return null;
-            } else {
-                return JSON.parse(localStorage.getItem('mesproduitslocaux-cart'));
-            }
+            return this.$store.state.cart.cartLocalStorage;
         },
+
         productsInCartIds() {
-            if(!this.cartLocalStorage) {
-                localStorage.setItem('mesproduitslocaux-cart', JSON.stringify({}));
-                return [];
-            } else {
-                let ids = [];
-                for(const item of this.cartLocalStorage.content) {
-                    ids.push(item.id)
-                }
-                return ids;
-            }
+            return this.$store.state.cart.cartProductsIds;
         },
+
         productsInCartInfo() {
             return this.$store.state.cart.productsInCart;
         },
+
         totalPrice(){
             let sum = 0;
             for(const product of this.productsInCartInfo) {
@@ -51,68 +37,23 @@ export default {
                 return this.cartLocalStorage.content[index].quantity;
             }
         },
-        
+
         addOneToCart(product){
-            if(product.quantity >= 1) {
-                let currentCart = JSON.parse(localStorage.getItem('mesproduitslocaux-cart'));
-
-                if(currentCart.region != product.region_id) {
-                    alert('Vous avez déjà dans votre panier un ou des article(s) provenant d\'une autre région. Veuillez continuer votre shopping dans cette même région ou vider votre panier.')
-                } else {
-                    const index = currentCart.content.findIndex(item => item.id === product.id);
-                    if(index === -1) {
-                        return;
-                    }
-
-                    let newTotal = currentCart.content[index].quantity + 1;
-                    if(newTotal < product.quantity) {
-                        currentCart.content[index].quantity ++;
-                    } else {
-                        currentCart.content[index].quantity = product.quantity;
-                        alert('Quantité maximum atteinte pour ce produit');
-                    }
-                }
-                let newCartValue = JSON.stringify(currentCart);
-                localStorage.setItem('mesproduitslocaux-cart', newCartValue);
-                console.log(localStorage.getItem('mesproduitslocaux-cart'));
-
-            } else {
-                alert('Quantité indisponible !');
-            }
+            this.$store.dispatch("addOneToCartFromCart", product);
         },
 
         removeOneFromCart(product) {
-            let currentCart = JSON.parse(localStorage.getItem('mesproduitslocaux-cart'));
-            const index = currentCart.content.findIndex(item => item.id === product.id);
-
-            if(index === -1) {
-                return;
-            }
-                    
-            let newTotal = currentCart.content[index].quantity - 1;
-            if(newTotal < product.quantity && newTotal > 0) {
-                currentCart.content[index].quantity --;
-            } else if (newTotal <= 0) {
-                currentCart.content = currentCart.content.filter((item) => item.id !== product.id);
-            } else {
-                currentCart.content[index].quantity = product.quantity;
-                alert('Quantité maximum atteinte pour ce produit');
-            }
-            let newCartValue = JSON.stringify(currentCart);
-            localStorage.setItem('mesproduitslocaux-cart', newCartValue);
-            console.log(localStorage.getItem('mesproduitslocaux-cart'));
+            this.$store.dispatch("removeOneFromCart", product);
         },
 
         removeProductFromCart(product) {
-            let currentCart = JSON.parse(localStorage.getItem('mesproduitslocaux-cart'));
-            currentCart.content = currentCart.content.filter((item) => item.id !== product.id);
-            let newCartValue = JSON.stringify(currentCart);
-            localStorage.setItem('mesproduitslocaux-cart', newCartValue);
+            this.$store.dispatch("removeProductFromCart", product);
         }
 
     },
 
     mounted() {
+        this.$store.dispatch("getCartLocalStorage");
         this.$store.dispatch("getCartProductsInfos", this.productsInCartIds);
     }
 }

@@ -100,7 +100,11 @@ export default {
     },
 
     addToCart(quantityWanted) {
-      console.log(localStorage.getItem('mesproduitslocaux-cart'));
+      this.$store.dispatch("addToCartFromShop", {'quantityWanted': quantityWanted, 
+                                                'quantityAvailable': this.product.quantity,
+                                                'productId': this.product.id,
+                                                'productRegion': this.product.region_id});
+      /*console.log(localStorage.getItem('mesproduitslocaux-cart'));
       if(Number.isInteger(quantityWanted) && quantityWanted >= 1 && quantityWanted <= this.product.quantity) {
         if(!localStorage.getItem('mesproduitslocaux-cart')) {
           let newCart = JSON.stringify({'region': this.product.region_id, 'content': [{'id': this.product.id, 'quantity': quantityWanted}]});
@@ -115,7 +119,7 @@ export default {
               currentCart.content.push({'id': this.product.id, 'quantity': quantityWanted});
             } else {
               let newTotal = currentCart.content[index].quantity + quantityWanted;
-              if(newTotal < this.product.quantity) {
+              if(newTotal <= this.product.quantity) {
                 currentCart.content[index].quantity += quantityWanted;
               } else {
                 currentCart.content[index].quantity = this.product.quantity;
@@ -129,7 +133,7 @@ export default {
         }
       } else {
         alert('Quantité indisponible !');
-      }
+      }*/
     }
   },
 }

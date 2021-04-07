@@ -3,17 +3,11 @@ export default {
 	name: 'Header',
     computed: {
         cartArticlesNumber() {
-            if(!localStorage.getItem('mesproduitslocaux-cart')) {
-                return 0;
-            } else {
-                let cart = JSON.parse(localStorage.getItem('mesproduitslocaux-cart'));
-                let total = 0;
-                for(const item of cart.content) {
-                    total += item.quantity;
-                }
-                return total;
-            }
+            return this.$store.state.cart.cartTotalItemsNumber;
         }
+    },
+    mounted() {
+        this.$store.dispatch("getCartArticlesNumber");
     }
 }
 

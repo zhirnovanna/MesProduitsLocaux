@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@websanova/vue-auth": "^4.1.1",
+    "alertifyjs": "^1.13.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "core-js": "^3.6.5",

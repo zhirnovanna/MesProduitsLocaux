@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 //import {createAuth} from '@websanova/vue-auth';
 import 'bootstrap'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/alertify.min.css';
 import App from './App.vue'
 import router from './router'
 import store from './store'
