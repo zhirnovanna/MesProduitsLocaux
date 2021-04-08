@@ -211,6 +211,14 @@ const actions = {
         commit('SET_CART_LOCALSTORAGE', currentCart);
         commit('SET_CART_PRODUCTS_IDS', currentCart);
     },
+
+    emptyCart({ commit }) {
+        localStorage.removeItem('mesproduitslocaux-cart');
+        const currentCart = {};
+        commit('SET_CART_LOCALSTORAGE', currentCart);
+        commit('SET_CART_TOTAL_NUMBER', 0);
+        commit('SET_CART_PRODUCTS_IDS', currentCart);
+    }
 }
 
 export default {

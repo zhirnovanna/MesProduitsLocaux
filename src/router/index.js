@@ -5,6 +5,8 @@ import SignUp from '../views/SignUp.vue'
 import Dashboard from '../views/Dashboard.vue'
 import adminDashboard from '../views/adminDashboard.vue'
 import ModifyMyInfo from '../views/ModifyMyInfo.vue'
+import PaiementPage from '../views/PaiementPage.vue'
+import Confirmation from '../views/Confirmation.vue'
 import store from '@/store'
 import ProductsDisplay from '../views/ProductsDisplay.vue'
 import Cart from '../views/Cart.vue'
@@ -34,6 +36,16 @@ const routes = [
     path: '/signup',
     name: 'SignUp',
     component: SignUp
+  },
+  {
+    path: '/PaiementPage',
+    name: PaiementPage,
+    component: PaiementPage
+  },
+  {
+    path: '/Confirmation',
+    name: Confirmation,
+    component: Confirmation
   },
   // ADMIN ROUTES
   {

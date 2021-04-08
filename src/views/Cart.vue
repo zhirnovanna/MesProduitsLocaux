@@ -61,9 +61,17 @@ export default {
 </script>
 
 <template>
+<div>
 
+    <div v-if="totalPrice === 0" class="vide">
+        <p class="pavi">Votre panier est vide.</p>
+        <i class="bi bi-emoji-frown"></i>
+        <div class="butt">
+            <router-link to="/" class="btn btn-primary">Faire des achats</router-link>
+        </div>
+    </div>
 
-<div class="my-3">
+<div v-if="totalPrice > 0" class="my-3">
     <table class="tableau">
         <thead>
             <tr>
@@ -153,11 +161,13 @@ export default {
             <router-link to="/" class="btn btn-default">Continuer mes achats</router-link>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="">Confirmer</a>
+            <router-link class="btn btn-primary" to="/PaiementPage">Confirmer</router-link>
         </div>
 
     </div>
     
+</div>
+
 </div>
 
 </template>
@@ -423,6 +433,23 @@ strong {
 
 .pull-right {
     float: right !important;
+}
+
+/*---------------PANIER VIDE---------------*/
+.vide {
+    text-align: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.pavi {
+    font-size: 50px;
+    color:rgb(199, 199, 199);
+}
+
+.bi-emoji-frown {
+    color:rgb(199, 199, 199) ;
+    font-size: 100px;
 }
 
 </style>

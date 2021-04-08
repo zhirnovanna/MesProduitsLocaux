@@ -9,7 +9,7 @@
                         <div class="parent">
                             <div class="col-md-6 col-sm-6 col-xs-12 product-left">
                                 <div class="thumb">
-                                    <img :src="product.image" class="card-img-top" alt="">
+                                    <img :src="product.image" class="card-img-top block-modal__image" alt="">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 product-right">
@@ -54,7 +54,7 @@
                                     <ul class="blocks">
                                         <li class="category_name"><span>CATÉGORIE</span><a>{{product.category_name}}</a></li>
                                         <li class="region_name"><span>RÉGION</span><a>{{product.region_name}}</a></li>
-                                        <li class="dispo"><span>Disponibilité</span><a>En stock</a></li>
+                                        <li class="dispo"><span>Disponibilité</span><a>{{product.quantity === 0 ? 'Épuisé' : 'En stock'}}</a></li>
                                         <li class="quantity"><span>Quantité</span><a>{{product.quantity}}</a></li>
 
                                     </ul>
@@ -375,5 +375,9 @@ background-color: transparent;
  }
 #button-cartqv:hover {
     background-color:#588b15;
+}
+
+.block-modal__image {
+    max-height: 100%;
 }
 </style>
