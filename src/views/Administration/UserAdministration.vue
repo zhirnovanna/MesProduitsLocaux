@@ -2,6 +2,7 @@
   <div class="p-4 modal-window">
     <UserCRUDForm 
         @user-submission='submitUser'
+        @closeModal='close'
         @update:modelEmail = 'updateEmail'
         @update:modelIsAdmin = 'updateIsAdmin'
         v-bind:modelId="userId"
@@ -96,6 +97,10 @@ export default {
   },
 
   methods: {
+    close() {
+      this.$router.push({ name: 'UsersAdministration' });
+    },
+
     submitUser(form) {
       // add was validated class to form if not already there to make validation feedback style appear
       if(!form.classList.contains('was-validated')) {

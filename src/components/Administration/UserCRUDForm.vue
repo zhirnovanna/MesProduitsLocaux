@@ -65,7 +65,10 @@ export default {
 
 <template>
     <div class="w-100 pt-2 pb-2 d-flex flex-column">
-        <h4 v-if="modelId" class="mb-3">Modifier un profil utilisateur</h4>
+        <div class="d-flex justify-content-between align-items-baseline">
+            <h4 v-if="modelId" class="mb-3">Modifier un profil utilisateur</h4>
+            <div @click="$emit('closeModal')" class="btn text-danger">X</div>
+        </div>
         <div class="my-3">
             <div class="h6">Informations</div>
             <div>{{ modelFirstName }} {{ modelLastName}}</div>

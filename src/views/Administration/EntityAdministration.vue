@@ -1,7 +1,8 @@
 <template>
   <div class="p-4 modal-window">
     <EntityCRUDForm 
-        @entity-submission='submitEntity'
+        @entity-submission = 'submitEntity'
+        @closeModal = 'close'
         @update:modelName = 'updateName'
         @update:modelIcon = 'updateIcon'
         @update:modelPath = 'updatePath'
@@ -118,6 +119,14 @@ export default {
   },
 
   methods: {
+    close() {
+      if (this.$route.name === 'CategoryCreation' || this.$route.name === 'CategoryUpdate') {
+        this.$router.push({ name: 'CategoriesAdministration' })
+      } else if (this.$route.name === 'RegionCreation' || this.$route.name === 'RegionUpdate') {
+        this.$router.push({ name: 'RegionsAdministration' })
+      }
+    },
+
     submitEntity(form) {
       // add was validated class to form if not already there to make validation feedback style appear
       if(!form.classList.contains('was-validated')) {

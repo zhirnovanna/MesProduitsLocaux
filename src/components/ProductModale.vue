@@ -94,7 +94,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bloc-modale {
     position: fixed;
     top: 0;
@@ -115,17 +115,26 @@ export default {
     left: 0;
 }
 .modale {
-    max-width: 80%;
+    overflow-y: scroll;
     background: #ffffff;
     color: #333;
     padding: 30px;
     position: fixed;
-    top: 10%;
     font-family: 'Lato', sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
     letter-spacing: 0.5px;
+
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+    @media screen and (min-width: #{$phone}) {
+        max-width: 80%;
+        max-height: 90%;
+        height: auto;
+    }
 }
 .btn-modale {
     position: absolute;

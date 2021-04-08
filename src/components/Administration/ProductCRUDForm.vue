@@ -123,8 +123,12 @@ export default {
 
 <template>
     <div class="w-100 pt-2 pb-2 d-flex flex-column">
-        <h4 v-if="modelId" class="mb-3">Modifier un produit</h4>
-        <h4 v-else class="mb-3">Ajouter un produit</h4>
+        <div class="d-flex justify-content-between align-items-baseline">
+            <h4 v-if="modelId" class="mb-3">Modifier un produit</h4>
+            <h4 v-else class="mb-3">Ajouter un produit</h4>
+            <div @click="$emit('closeModal')" class="btn text-danger">X</div>
+        </div>
+
         <form @submit.prevent="$emit('product-submission', $refs.form)" ref="form" class="needs-validation" enctype="multipart/form-data" novalidate>
             <input type="hidden" name="id" v-model="id">
             <div class="form-group mb-4">

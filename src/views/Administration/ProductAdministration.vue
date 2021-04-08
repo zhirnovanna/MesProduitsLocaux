@@ -2,6 +2,7 @@
   <div class="p-4 modal-window">
     <ProductCRUDForm 
         @product-submission='submitProduct'
+        @closeModal="close"
         @update:modelName = 'updateName'
         @update:modelDescription = 'updateDescription'
         @update:modelPrice= 'updatePrice'
@@ -109,6 +110,10 @@ export default {
   },
 
   methods: {
+    close() {
+      this.$router.push({ name: 'ProductsAdministration' });
+    },
+
     submitProduct(form) {
       // add was validated class to form if not already there to make validation feedback style appear
       if(!form.classList.contains('was-validated')) {
