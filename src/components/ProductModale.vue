@@ -131,9 +131,10 @@ export default {
     overflow-y: scroll;
 
     @media screen and (min-width: #{$phone}) {
+        height: auto;
+        width: auto;
         max-width: 80%;
         max-height: 90%;
-        height: auto;
     }
 }
 .btn-modale {
