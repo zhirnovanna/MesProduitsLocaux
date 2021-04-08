@@ -1,5 +1,10 @@
 <template>
 <div class="my-5">
+  <div v-if="products.length === 0" class="d-flex flex-column align-items-center">
+    <i class="bi bi-bag-x not-found__icon"></i>
+    <span class="mt-3 not-found__text">Aucun produit ne correspondant à vos critères</span>
+  </div>
+  <div v-else>
     <div class="container">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
             <ProductCard v-for="product in products" 
@@ -14,6 +19,8 @@
     v-bind:modelItemsPerPage="productsPerPage"
     v-bind:modelNumberOfItems="lengthMatchedProducts"
     />
+    
+  </div>
 </div>
 </template>
 
@@ -127,5 +134,33 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+@-webkit-keyframes swinging{
+  0%{-webkit-transform: rotate(20deg);}
+  50%{-webkit-transform: rotate(-15deg)}
+  100%{-webkit-transform: rotate(20deg);}
+}
+
+@keyframes swinging{
+  0%{transform: rotate(20deg);}
+  50%{transform: rotate(-15deg)}
+  100%{transform: rotate(20deg);}
+}
+
+.not-found {
+  
+  &__text {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  &__icon {
+    font-size: 2rem;
+    color: $primary-color;
+    -webkit-transform-origin: 50% 0;
+    -webkit-animation: swinging 2s ease-in-out forwards infinite;
+    transform-origin: 50% 0;
+    animation: swinging 2s ease-in-out forwards infinite;
+  }
+}
 </style>

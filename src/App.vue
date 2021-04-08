@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <TheNavigation/>
-    <Header/>
+    <TheNavigation v-if="$route.name !== 'NotFound'"/>
+    <Header v-if="$route.name !== 'NotFound'"/>
     <router-view/>
-    <Footer/>
+    <Footer v-if="$route.name !== 'NotFound'"/>
   </div>
 </template>
 

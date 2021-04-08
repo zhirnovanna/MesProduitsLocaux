@@ -16,6 +16,8 @@ import RegionsAdministration from '../views/Administration/RegionsAdministration
 import EntityAdministration from '../views/Administration/EntityAdministration.vue'
 import UsersAdministration from '../views/Administration/UsersAdministration.vue'
 import UserAdministration from '../views/Administration/UserAdministration.vue'
+import NotFound from '../views/NotFound.vue'
+
 
 const routes = [
   {
@@ -217,6 +219,11 @@ const routes = [
       }
     }
   },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
+  }
 ]
 
 const router = createRouter({
