@@ -11,6 +11,7 @@ export const ENDPOINT = 'https://api-mesproduitslocaux.herokuapp.com/api/';
 
 export default createStore({
   state: {
+    loading: true,
     products: [],
     product: {},
     lengthMatchedProducts: 0,

@@ -1,4 +1,8 @@
 export const mutations = {
+    SET_LOADING(state, bool) {
+        state.loading = bool;
+    },
+
     SET_PRODUCTS(state, products) {
         state.products = products;
     },
