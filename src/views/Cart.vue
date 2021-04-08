@@ -48,6 +48,10 @@ export default {
 
         removeProductFromCart(product) {
             this.$store.dispatch("removeProductFromCart", product);
+        },
+    
+        empty() {
+            this.$store.dispatch("emptyCart");
         }
 
     },
@@ -63,7 +67,7 @@ export default {
 <template>
 <div>
 
-    <div v-if="totalPrice === 0" class="vide">
+    <div v-if="!cartLocalStorage" class="vide">
         <p class="pavi">Votre panier est vide.</p>
         <i class="bi bi-emoji-frown"></i>
         <div class="butt">
@@ -71,7 +75,10 @@ export default {
         </div>
     </div>
 
-<div v-if="totalPrice > 0" class="my-3">
+<div v-if="cartLocalStorage" class="my-3">
+    <div class="mt-2 mb-4 d-flex justify-content-end">
+        <button @click="empty" class="btn btn-custom-primary">Vider le panier</button>
+    </div>
     <table class="tableau">
         <thead>
             <tr>

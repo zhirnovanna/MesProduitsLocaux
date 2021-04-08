@@ -175,7 +175,7 @@ const actions = {
             if(currentCart.content.length === 0) {
                 // if the cart is now empty remove localstorage item (to also forget region)
                 localStorage.removeItem('mesproduitslocaux-cart');
-                currentCart = {}
+                currentCart = null;
                 commit('SET_CART_LOCALSTORAGE', currentCart);
                 commit('SET_CART_TOTAL_NUMBER', 0);
                 commit('SET_CART_PRODUCTS_IDS', currentCart);
@@ -200,7 +200,7 @@ const actions = {
         if(currentCart.content.length === 0) {
             // if the cart is now empty remove localstorage item (to also forget region)
             localStorage.removeItem('mesproduitslocaux-cart');
-            currentCart = {}
+            currentCart = null;
             commit('SET_CART_TOTAL_NUMBER', 0);
         } else {
             let newCartValue = JSON.stringify(currentCart);
@@ -214,7 +214,7 @@ const actions = {
 
     emptyCart({ commit }) {
         localStorage.removeItem('mesproduitslocaux-cart');
-        const currentCart = {};
+        const currentCart = null;
         commit('SET_CART_LOCALSTORAGE', currentCart);
         commit('SET_CART_TOTAL_NUMBER', 0);
         commit('SET_CART_PRODUCTS_IDS', currentCart);
