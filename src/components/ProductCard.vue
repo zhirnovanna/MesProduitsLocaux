@@ -144,7 +144,7 @@ h4 {
   cursor: pointer;
   font-family: 'Lato', sans-serif;
   color: #000;
-  white-space: nowrap;
+  white-space: normal;
   text-transform: capitalize;
   letter-spacing: 0.5px;
 }

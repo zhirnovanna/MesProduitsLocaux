@@ -156,7 +156,7 @@ export default {
                     <input type="file" name="imgFile" id="imgFile" class="custom-file-input" @change="imageFileUpload" accept=".jpeg, .jpg, .png, .gif">
                 </div>
                 <div class="invalid-feedback" ref="imgFeedback"></div>
-                <img v-if="image !== null" :src="image" alt="Photo du produit" class="d-block m-2">
+                <img v-if="image !== null" :src="image" alt="Photo du produit" class="d-block m-2 block-form__photo">
             </div>
             <div class="form-group mb-4">
                 <label for="categoryId">Catégorie du produit</label>
@@ -183,5 +183,8 @@ export default {
             min-height: 225px;
         }
 
+        &__photo{
+            max-width: 100%;
+        }
     }
 </style>
