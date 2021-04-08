@@ -1,25 +1,37 @@
 <template>
 <div class="my-5">
-  <div v-if="products.length === 0" class="d-flex flex-column align-items-center">
-    <i class="bi bi-bag-x not-found__icon"></i>
-    <span class="mt-3 not-found__text">Aucun produit ne correspondant à vos critères</span>
+
+  <div v-if="loading === true" class="d-flex justify-content-center">
+    <div class="spinner-border spinner-products" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
   </div>
+
+
   <div v-else>
-    <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-            <ProductCard v-for="product in products" 
-            v-bind:product="product" 
-            v-bind:key="product.key" />
-        </div>
+
+    <div v-if="products.length === 0" class="d-flex flex-column align-items-center">
+      <i class="bi bi-bag-x not-found__icon"></i>
+      <span class="mt-3 not-found__text">Aucun produit ne correspondant à vos critères</span>
     </div>
 
-    <Pagination
-    @update:modelPage = 'updatePage'
-    v-bind:modelPage="page"
-    v-bind:modelItemsPerPage="productsPerPage"
-    v-bind:modelNumberOfItems="lengthMatchedProducts"
-    />
-    
+    <div v-else>
+      <div class="container">
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+              <ProductCard v-for="product in products" 
+              v-bind:product="product" 
+              v-bind:key="product.key" />
+          </div>
+      </div>
+
+      <Pagination
+      @update:modelPage = 'updatePage'
+      v-bind:modelPage="page"
+      v-bind:modelItemsPerPage="productsPerPage"
+      v-bind:modelNumberOfItems="lengthMatchedProducts"
+      />
+      
+    </div>
   </div>
 </div>
 </template>
@@ -91,6 +103,11 @@ export default {
         'sorting': this.sorting };
     },
 
+    loading() {
+      // are the products still loading ?
+      return this.$store.state.loading;
+    },
+
     products() {
       // return the products array from state which has been set as the API GET request result
       return this.$store.state.products;
@@ -135,6 +152,12 @@ export default {
 </script>
 
 <style lang="scss">
+
+.spinner-products{
+  color: $primary-color;
+}
+
+
 @-webkit-keyframes swinging{
   0%{-webkit-transform: rotate(20deg);}
   50%{-webkit-transform: rotate(-15deg)}

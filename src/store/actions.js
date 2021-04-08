@@ -20,6 +20,8 @@ export const actions = {
     },
 
     async getFilteredProducts ({ commit }, parameters) {
+        commit('SET_LOADING', true);
+
         abortControllerProduct.abort(); // Cancel the previous request
         abortControllerProduct = new AbortController();
 
@@ -46,6 +48,7 @@ export const actions = {
             const data = await response.json();
 
             commit('SET_PRODUCTS', data);
+            commit('SET_LOADING', false);
         }
         catch (ex) {
             if (ex.name === 'AbortError') {
