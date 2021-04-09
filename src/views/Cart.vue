@@ -407,7 +407,7 @@ export default {
     border-collapse: collapse;
 }
 
-.text-right1, .text-right2, .text-right3, .text-right4 {
+.text-right1, .text-right2, .text-right3, .text-right4, .text-right5 {
     background: #fff;
     border: 1px solid #e9e9e9;
     color: #222;
