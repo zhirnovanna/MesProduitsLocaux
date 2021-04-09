@@ -10,7 +10,6 @@
                 </div>
 
                 <UserProfile/>
-                <UserOrderHistory/>
             </div>
         </div>
 
@@ -24,13 +23,11 @@
 </template>
 <script>
 import UserProfile from '@/components/UserProfile.vue'
-import UserOrderHistory from '@/components/UserOrderHistory.vue'
 
   export default {
     name: 'Dashboard',
     components: {
       UserProfile,
-      UserOrderHistory
     },
     computed: {
       isUserOpen () {
