@@ -13,8 +13,8 @@
         </div>
 
         <div>
-            <router-link v-if="user.admin === 1" :to="{ name: 'ModifyMyInfoAdmin', params: { id: user.id } }" class="btn btn-custom-primary my-2">Modifier mes informations</router-link>
-            <router-link v-if="user.admin === 0" :to="{ name: 'ModifyMyInfo', params: { id: user.id } }" class="btn btn-custom-primary my-2">Modifier mes informations</router-link>
+            <router-link v-if="userAuth.admin === 1" :to="{ name: 'ModifyMyInfoAdmin', params: { id: userAuth.id } }" class="btn btn-custom-primary my-2">Modifier mes informations</router-link>
+            <router-link v-if="userAuth.admin === 0" :to="{ name: 'ModifyMyInfo', params: { id: userAuth.id } }" class="btn btn-custom-primary my-2">Modifier mes informations</router-link>
         </div>
 
       </div>
@@ -33,9 +33,15 @@ export default {
     computed: {
         ...mapGetters({
             authenticated: 'auth/authenticated',
-            user: 'auth/user',
-        })
+            userAuth: 'auth/user',
+        }),
+        user(){
+            return this.$store.state.crud.userToUpdate;
+        }
     },
+    mounted(){
+        this.$store.dispatch("getUser", this.userAuth.id);
+    }
 }
 </script>
 
