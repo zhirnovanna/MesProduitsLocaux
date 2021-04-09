@@ -155,7 +155,9 @@ h4 {
   cursor: pointer;
   font-family: 'Lato', sans-serif;
   color: #000;
-  white-space: normal;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   text-transform: capitalize;
   letter-spacing: 0.5px;
 }
