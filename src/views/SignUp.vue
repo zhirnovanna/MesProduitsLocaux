@@ -33,7 +33,7 @@
           </div> 
           <div class="form-group">
             <label for="phone">Numéro de téléphone</label>
-            <input type="number" v-model.number="form.phone" class="form-control" name="phone" placeholder="ex: 06123456" required>
+            <input type="number" v-model="form.phone" class="form-control" name="phone" placeholder="ex: 06123456" required>
           </div>
 
           <div class="form-group">
