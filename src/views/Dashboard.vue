@@ -7,7 +7,6 @@
 
           <div class="card-body">
             <UserProfile/>
-            <UserOrderHistory/>
           </div>
 
       </div>
@@ -25,21 +24,21 @@
 <script>
 // @ is an alias to /src
 import UserProfile from '@/components/UserProfile.vue'
-import UserOrderHistory from '@/components/UserOrderHistory.vue'
 
 
 export default {
   name: 'Dashboard',
   components: {
     UserProfile,
-    UserOrderHistory
   },
+
   computed: {
     isUserOpen () {
       return (this.$route.name === 'ModifyMyInfo');
     }
 
   },
+  
   methods: {
     close () {
       this.$router.push({ name: 'Dashboard' })
