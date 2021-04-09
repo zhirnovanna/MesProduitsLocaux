@@ -170,7 +170,7 @@ export default {
                         <strong>Frais de port</strong>
                     </td>
                     <td class="text-right total-amount">
-                        Calculer page suivante
+                        9,99 €
                     </td>
                 </tr>
                 <tr>
@@ -187,6 +187,14 @@ export default {
                     </td>
                     <td class="text-right total-amount">
                         <div>{{ totalPrice }} €</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right5">
+                        <strong>Total frais de port inclus</strong>
+                    </td>
+                    <td class="text-right total-amount">
+                        <div>{{ totalPrice + 9.99 }} €</div>
                     </td>
                 </tr>
             </tbody>
