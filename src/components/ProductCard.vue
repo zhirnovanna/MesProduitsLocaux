@@ -3,7 +3,7 @@
     <div class="my-2 mx-auto">
       <div class="product-container">
         <div class="card product-card">
-          <img :src="product.image" class="card-img-top" alt="">
+          <img @click="toggleModale" :src="product.image" class="card-img-top" alt="">
           <div class="stars">
           <fieldset class="rating-stars">
             <input type="radio" :id="'star5' + product.id" :name="'rating' + product.id" value="5" />
@@ -127,6 +127,13 @@ export default {
 img {
   overflow: hidden;
   position: relative;
+}
+
+.card-img-top {
+  height: 200px;
+  max-height: 200px;
+  object-fit: contain;
+  cursor: pointer;
 }
 .card-body {
   margin: 0 12px 15px;
