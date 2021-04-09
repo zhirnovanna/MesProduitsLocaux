@@ -40,7 +40,6 @@ export default {
   actions: {
     async signIn ({ dispatch }, credentials) {
       let restest = await axios.post('auth/signin', credentials).then(response => {
-       // console.log(response.data)
        return dispatch('attempt', response.data.access_token)
        })
        .catch(error =>  {
@@ -77,14 +76,18 @@ export default {
       })
     },
     async signUp({dispatch}, form) {
-      //console.log(form);
       
-      await axios.post('auth/signup', form)
+      let test = await axios.post('auth/signup', form)
 
       let UserForm = new FormData()
       UserForm.append('email', form.email)
       UserForm.append('password', form.password)
       await dispatch('signIn', UserForm)
+      .catch(error =>  {
+        console.log(error);
+        return true;
+       })
+      return test;
     },
   }
 }
