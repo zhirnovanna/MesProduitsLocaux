@@ -83,7 +83,7 @@ export default {
     props: ['revele', 'toggleModale', 'product'],
     data() {
         return {
-            quantityWanted: '1',
+            quantityWanted: 1,
         }
     },
     methods: {
@@ -378,6 +378,8 @@ background-color: transparent;
 }
 
 .block-modal__image {
-    max-height: 100%;
+    @media screen and (min-width: #{$phone}) {
+        max-height: 80vh;
+    }
 }
 </style>
