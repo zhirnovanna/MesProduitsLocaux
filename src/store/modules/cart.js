@@ -21,7 +21,7 @@ const mutations = {
         state.cartLocalStorage = cart;
     },
     SET_CART_PRODUCTS_IDS(state, cart) {
-        if(!cart.content || cart === null) {
+        if(cart === null || !cart.content) {
             state.cartProductsIds = [];
         } else {
             let ids = [];

@@ -35,7 +35,7 @@ export default {
     watch: {
         productsInCartIds() {
             this.$store.dispatch("getCartProductsInfos", this.productsInCartIds);
-            if(this.productsInCartIds && this.productsInCartIds > 0) {
+            if(this.productsInCartIds && this.productsInCartIds.length > 0) {
                 for(const productId of this.productsInCartId) {
                     this.revele[productId] = false;
                 }
