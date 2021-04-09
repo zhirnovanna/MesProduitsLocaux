@@ -73,7 +73,7 @@ export default {
               
               amount: {
                 currency: "EUR",
-                value: this.totalPrice
+                value: this.totalPrice + 9.99
               }
             }]
           });
