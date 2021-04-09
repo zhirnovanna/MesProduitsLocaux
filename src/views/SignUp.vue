@@ -2,9 +2,6 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 mt-5 mx-auto">
-      <div class="alert alert-danger" v-if="has_error">
-           <p>Erreur, cet email est déjà pris.</p>
-        </div>
         <form @submit.prevent="submit">
           <h1 class="h3 mb-3 font-weight-normal">Création de votre compte</h1>
 
@@ -36,7 +33,7 @@
           </div> 
           <div class="form-group">
             <label for="phone">Numéro de téléphone</label>
-            <input type="number" v-model="form.phone" class="form-control" name="phone" placeholder="ex: 06123456" required>
+            <input type="number" v-model.number="form.phone" class="form-control" name="phone" placeholder="ex: 06123456" required>
           </div>
 
           <div class="form-group">
@@ -78,13 +75,10 @@
       methods: {
       ...mapActions({
         signUp: 'auth/signUp',
-        async submit(res) {
-          if (res){
-            this.has_error = true;
-          }else{
+        async submit() {
         await this.signUp(this.form);
         this.$router.push("/dashboard");
-        }},
+        },
       }),
   }}
 </script>
