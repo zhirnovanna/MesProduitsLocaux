@@ -76,8 +76,8 @@ export default {
       })
     },
     async signUp({dispatch}, form) {
-      
-      let test = await axios.post('auth/signup', form)
+      console.log(form);
+      await axios.post('auth/signup', form)
 
       let UserForm = new FormData()
       UserForm.append('email', form.email)
@@ -87,7 +87,6 @@ export default {
         console.log(error);
         return true;
        })
-      return test;
     },
   }
 }

@@ -61,8 +61,7 @@
         name: "SignUp",
         data(){
             return {
-              has_error : false,
-              errors: [],
+              has_error: false,
               form : {
                 firstname: '',
                 lastname: '',
@@ -78,13 +77,10 @@
       methods: {
       ...mapActions({
         signUp: 'auth/signUp',
-        async submit(res) {
-          if (res){
-            this.has_error = true;
-          }else{
+        async submit() {
         await this.signUp(this.form);
         this.$router.push("/dashboard");
-        }},
+        },
       }),
   }}
 </script>
