@@ -1,7 +1,15 @@
 <script>
+import ProductModale from '@/components/ProductModale.vue'
 export default {
 	name: 'Cart',
-
+  data() {
+    return{
+      revele:[],
+    }
+  },
+  components: {
+    ProductModale
+  },
     computed: {
         cartLocalStorage() {
             return this.$store.state.cart.cartLocalStorage;
@@ -27,6 +35,11 @@ export default {
     watch: {
         productsInCartIds() {
             this.$store.dispatch("getCartProductsInfos", this.productsInCartIds);
+            if(this.productsInCartIds && this.productsInCartIds > 0) {
+                for(const productId of this.productsInCartId) {
+                    this.revele[productId] = false;
+                }
+            }
         },
     },
 
@@ -36,6 +49,15 @@ export default {
             if(index !== -1) {
                 return this.cartLocalStorage.content[index].quantity;
             }
+        },
+        toggleModale(productId) {
+            this.revele[productId] = !this.revele[productId];
+        },
+        addToCart(quantityWanted) {
+            this.$store.dispatch("addToCartFromShop", {'quantityWanted': quantityWanted, 
+                                                'quantityAvailable': this.product.quantity,
+                                                'productId': this.product.id,
+                                                'productRegion': this.product.region_id});
         },
 
         addOneToCart(product){
@@ -97,7 +119,7 @@ export default {
                     <img :src="product.image" class="card-img-top" alt="">
                 </td>
                 <td class="text-center-prodnam">
-                    <div>{{product.name}}</div>
+                    <a @click="toggleModale(product.id)">{{product.name}}</a>
                 </td>
                 <td class="text-center-catnam">
                     <div>{{product.category_name}}</div>
@@ -120,8 +142,16 @@ export default {
                 <td class="text-center-qttpr">
                     <div>{{getProductsQuantityInCart(product.id) * product.price}} €</div>
                 </td>
+
+                    <ProductModale 
+                    @add-to-cart = 'addToCart'
+                    @toggleModale = "toggleModale"
+                    v-bind:revele="revele[product.id]" 
+                    v-bind:product="product"
+                    v-bind:key="product.id" />
             </tr>
         </tbody>
+
     </table>
 
     <div class="sub-total-table">
@@ -140,7 +170,7 @@ export default {
                         <strong>Frais de port</strong>
                     </td>
                     <td class="text-right total-amount">
-                        Calculer page suivante
+                        9,99 €
                     </td>
                 </tr>
                 <tr>
@@ -157,6 +187,14 @@ export default {
                     </td>
                     <td class="text-right total-amount">
                         <div>{{ totalPrice }} €</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-right5">
+                        <strong>Total frais de port inclus</strong>
+                    </td>
+                    <td class="text-right total-amount">
+                        <div>{{ totalPrice + 9.99 }} €</div>
                     </td>
                 </tr>
             </tbody>
@@ -306,6 +344,11 @@ export default {
     padding: 8px;
     line-height: 1.42857143;
     text-align: left;
+}
+
+.text-center-prodnam:hover {
+    cursor:pointer;
+    color: #6fae1d;
 }
 
 .minus-cart {
