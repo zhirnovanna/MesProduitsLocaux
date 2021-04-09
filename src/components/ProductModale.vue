@@ -3,9 +3,9 @@
     <div class="quickview">
         <div class="content">
             <div class="bloc-modale" v-if="revele">
-                <div class="overlay" v-on:click="toggleModale"></div>
+                <div class="overlay" v-on:click="$emit('toggleModale', product.id)"></div>
                     <div class="modale card">
-                        <div v-on:click="toggleModale" class="btn-modale btn btn-danger">X</div>
+                        <div v-on:click="$emit('toggleModale', product.id)" class="btn-modale btn btn-danger">X</div>
                         <div class="parent">
                             <div class="col-md-6 col-sm-6 col-xs-12 product-left">
                                 <div class="thumb">

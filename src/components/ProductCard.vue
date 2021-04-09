@@ -69,8 +69,8 @@
 
     <ProductModale 
     @add-to-cart = 'addToCart'
+    @toggleModale = "toggleModale"
     v-bind:revele="revele" 
-    v-bind:toggleModale="toggleModale"
     v-bind:product="product" />
 
   </div>
@@ -95,8 +95,12 @@ export default {
     ProductModale
   },
   methods: {
-    toggleModale: function() {
-      this.revele = !this.revele;
+    toggleModale: function(productId = null) {
+      if (productId === null) {
+        return;
+      } else {
+        this.revele = !this.revele;
+      }
     },
 
     addToCart(quantityWanted) {
